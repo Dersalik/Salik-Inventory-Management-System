@@ -3,13 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salik Inventory Management System.UI", "Salik Inventory Management System.UI\Salik Inventory Management System.UI.csproj", "{C2E0718D-D2F3-4B90-A65E-C2B6FF56B669}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salik Inventory Management System.Models", "Salik Inventory Management System.Models\Salik Inventory Management System.Models.csproj", "{7605A18E-BF4D-4B04-9123-F05E23302FE6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salik Inventory Management System.DataAccess", "Salik Inventory Management System.DataAccess\Salik Inventory Management System.DataAccess.csproj", "{4C0363CF-E1AE-47DD-ABC7-502873E7E784}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salik Inventory Management System.Services", "Salik Inventory Management System.Services\Salik Inventory Management System.Services.csproj", "{E0527EAE-B017-4488-8181-B72B7530A93A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Salik Inventory Management System.UI", "Salik Inventory Management System.UI\Salik Inventory Management System.UI.csproj", "{C2E0718D-D2F3-4B90-A65E-C2B6FF56B669}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,18 +15,6 @@ Global
 		{C2E0718D-D2F3-4B90-A65E-C2B6FF56B669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2E0718D-D2F3-4B90-A65E-C2B6FF56B669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2E0718D-D2F3-4B90-A65E-C2B6FF56B669}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7605A18E-BF4D-4B04-9123-F05E23302FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7605A18E-BF4D-4B04-9123-F05E23302FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7605A18E-BF4D-4B04-9123-F05E23302FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7605A18E-BF4D-4B04-9123-F05E23302FE6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4C0363CF-E1AE-47DD-ABC7-502873E7E784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C0363CF-E1AE-47DD-ABC7-502873E7E784}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4C0363CF-E1AE-47DD-ABC7-502873E7E784}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4C0363CF-E1AE-47DD-ABC7-502873E7E784}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0527EAE-B017-4488-8181-B72B7530A93A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0527EAE-B017-4488-8181-B72B7530A93A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0527EAE-B017-4488-8181-B72B7530A93A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0527EAE-B017-4488-8181-B72B7530A93A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

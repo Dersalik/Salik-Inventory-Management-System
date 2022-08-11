@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Salik_Inventory_Management_System.UI.DataAccess.Repository.IRepository
+namespace InventoryManagementSystemTests
 {
-    public class IGenericRepository
+    internal class CustomerRepositoryTest
     {
-
     }
 }

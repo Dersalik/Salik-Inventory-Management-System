@@ -7,7 +7,7 @@ namespace Salik_Inventory_Management_System.UI.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "ناوى كالأ نابيت به تال بيت")]
-        public string ItemName { get; set; }
+        public string? ItemName { get; set; }
         [Required(ErrorMessage = "نرخ نابيت به تال بيت")]
         [MinLength(1,ErrorMessage ="  نرخ ده بئ له 1 دؤلار زياتر بيت")]
         [Column(TypeName = "decimal(18,4)")]

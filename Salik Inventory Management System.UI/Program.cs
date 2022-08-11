@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Salik_Inventory_Management_System.UI.Configuration;
+using Salik_Inventory_Management_System.UI.DataAccess;
 
 namespace Salik_Inventory_Management_System.UI
 {
@@ -15,17 +17,19 @@ namespace Salik_Inventory_Management_System.UI
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            
             ConfigureServices();
             Application.Run(new Form1());
         }
        public static ConfigurationForDatabase Config = new ConfigurationForDatabase();
+        public static string ConncetionString = Config.configuration.GetConnectionString("DefaultConnection");
         public static  IServiceProvider ServiceProvider { get;  set; }
         static void ConfigureServices()
         {
             var services = new ServiceCollection();
-          
+            
             //dependencies
-
+            services.AddDbContext<InventoryManagementSystemDbContext>(options=>options.UseSqlServer(ConncetionString));
             ServiceProvider=services.BuildServiceProvider();
         }
 

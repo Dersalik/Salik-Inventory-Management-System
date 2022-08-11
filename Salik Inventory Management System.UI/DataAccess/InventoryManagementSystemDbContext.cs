@@ -19,39 +19,47 @@ namespace Salik_Inventory_Management_System.UI.DataAccess
 
         public InventoryManagementSystemDbContext(DbContextOptions<InventoryManagementSystemDbContext> options) : base(options)  { }
 
+
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             //configuration of the many to many relationship
             modelBuilder.Entity<OrderItem>()
-                .HasKey(bc => new { bc.ItemModelId, bc.OrderModelId });
+                .HasKey(d => d.Id);
+
             modelBuilder.Entity<OrderItem>()
-                .HasOne(bc=>bc.item)
-                .WithMany(bc=>bc.ItemOrderedList)
-                .HasForeignKey(bc=>bc.ItemModelId)
-                .OnDelete(DeleteBehavior.SetNull);
-                 
+               .HasOne(bc => bc.item)
+               .WithMany(bc => bc.ItemOrderedList)
+               .HasForeignKey(bc => bc.ItemModelId)
+               .OnDelete(DeleteBehavior.SetNull);
+               
+
             modelBuilder.Entity<OrderItem>()
               .HasOne(bc => bc.order)
               .WithMany(bc => bc.orderedItems)
               .HasForeignKey(bc => bc.OrderModelId)
-              .OnDelete(DeleteBehavior.SetNull);
+              .OnDelete(DeleteBehavior.Cascade);
+
 
 
             modelBuilder.Entity<CustomerModel>()
                 .HasMany(p => p.Orders)
                 .WithOne(p => p.customerModel)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<OrderModel>()
+
+            modelBuilder.Entity<CustomerModel>()
                 .HasMany(d => d.payments)
-                .WithOne(d => d.order)
-                .OnDelete(DeleteBehavior.SetNull);
+                .WithOne(d => d.Customer)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<OrderModel>()
                 .HasMany(d => d.Invoices)
                 .WithOne(d => d.order)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.Cascade);
+             
 
             base.OnModelCreating(modelBuilder);
         }

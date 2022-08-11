@@ -8,5 +8,6 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository.IRepository
 {
     public class IGenericRepository
     {
+
     }
 }

@@ -9,7 +9,7 @@ namespace Salik_Inventory_Management_System.UI.Configuration
 {
     public class ConfigurationForDatabase
     {
-        IConfiguration configuration;
+        public IConfiguration configuration { get; }
 
         public ConfigurationForDatabase()
         {

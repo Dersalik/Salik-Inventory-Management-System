@@ -9,39 +9,41 @@ using System.Threading.Tasks;
 
 namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
 {
-    public class CustomerRepository : Repository<CustomerModel>, IGetDataFullyWithAttributes<CustomerModel>
+    public class OrderRepository :Repository<OrderModel>, IGetDataFullyWithAttributes<OrderModel>
     {
         private readonly SalikInventoryManagementDbContextFactory _dbContextfactory;
 
-        public CustomerRepository()
+        public OrderRepository()
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
-        public IAsyncEnumerable<CustomerModel> GetAllFully()
+        public IAsyncEnumerable<OrderModel> GetAllFully()
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var fullListwithAttributtes = context.Customers.
-                   Include(d => d.payments)
-                   .Include(d => d.Orders)
-                    .ThenInclude(d => d.Invoices)
-                   .Include(k=>k.Orders)
-                    .ThenInclude(s=>s.orderedItems).AsNoTracking().AsAsyncEnumerable();
+                var fullListwithAttributtes =  context.Orders
+                    .Include(f=>f.orderedItems)
+                    .Include(f=>f.Invoices)
+                    .Include(c=>c.customerModel)
+                    .AsAsyncEnumerable();
+                    
+                   
 
                  return fullListwithAttributtes;
             }
         }
 
-        public async Task<CustomerModel> GetFirstOrDefaultFully(int id)
+        public async Task<OrderModel> GetFirstOrDefaultFully(int id)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var firstordefault = await context.Customers.
-                   Include(d => d.payments)
-                   .Include(d => d.Orders)
-                    .ThenInclude(d => d.Invoices)
-                   .Include(k => k.Orders)
-                    .ThenInclude(s => s.orderedItems).AsNoTracking().FirstOrDefaultAsync(k=>k.Id==id);
+                var firstordefault =await context.Orders
+                    .Include(f => f.orderedItems)
+                    .Include(f => f.Invoices)
+                    .Include(c => c.customerModel)
+                    .FirstOrDefaultAsync(d=>d.Id==id);
+
+
 
                 return firstordefault;
             }

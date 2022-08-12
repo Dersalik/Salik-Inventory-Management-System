@@ -15,7 +15,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess
         {
             var options = new DbContextOptionsBuilder<InventoryManagementSystemDbContext>();
          
-            options.UseSqlServer(Program.ConncetionString);
+            options.UseSqlServer(Program.ConncetionString).EnableDetailedErrors(true);
 
             return new InventoryManagementSystemDbContext(options.Options);
         }

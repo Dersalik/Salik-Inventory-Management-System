@@ -9,39 +9,31 @@ using System.Threading.Tasks;
 
 namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
 {
-    public class CustomerRepository : Repository<CustomerModel>, IGetDataFullyWithAttributes<CustomerModel>
+    public class ItemRepository:Repository<ItemModel>, IGetDataFullyWithAttributes<ItemModel>
     {
         private readonly SalikInventoryManagementDbContextFactory _dbContextfactory;
 
-        public CustomerRepository()
+        public ItemRepository()
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
-        public IAsyncEnumerable<CustomerModel> GetAllFully()
+        public IAsyncEnumerable<ItemModel> GetAllFully()
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var fullListwithAttributtes = context.Customers.
-                   Include(d => d.payments)
-                   .Include(d => d.Orders)
-                    .ThenInclude(d => d.Invoices)
-                   .Include(k=>k.Orders)
-                    .ThenInclude(s=>s.orderedItems).AsNoTracking().AsAsyncEnumerable();
+                var fullListwithAttributtes = context.Items.Include(d => d.ItemOrderedList)
+                    .AsNoTracking().AsAsyncEnumerable();
 
                  return fullListwithAttributtes;
             }
         }
 
-        public async Task<CustomerModel> GetFirstOrDefaultFully(int id)
+        public async Task<ItemModel> GetFirstOrDefaultFully(int id)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var firstordefault = await context.Customers.
-                   Include(d => d.payments)
-                   .Include(d => d.Orders)
-                    .ThenInclude(d => d.Invoices)
-                   .Include(k => k.Orders)
-                    .ThenInclude(s => s.orderedItems).AsNoTracking().FirstOrDefaultAsync(k=>k.Id==id);
+                var firstordefault = await context.Items.Include(d => d.ItemOrderedList)
+                    .AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
 
                 return firstordefault;
             }

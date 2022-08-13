@@ -25,6 +25,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
                     .Include(f=>f.orderedItems)
                     .Include(f=>f.Invoices)
                     .Include(c=>c.customerModel)
+                    .AsNoTracking()
                     .AsAsyncEnumerable();
                     
                    
@@ -41,11 +42,29 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
                     .Include(f => f.orderedItems)
                     .Include(f => f.Invoices)
                     .Include(c => c.customerModel)
+                    .AsNoTracking()
                     .FirstOrDefaultAsync(d=>d.Id==id);
 
 
 
                 return firstordefault;
+            }
+        }
+
+        public async Task<IAsyncEnumerable<OrderModel>> getAllOrdersByIdOfCustomer(int id)
+        {
+            using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
+            {
+                var ordersOfTheCustomer =  context.Orders
+                    .Include(f => f.orderedItems)
+                    .Include(f => f.Invoices)
+                    .Include(c => c.customerModel)
+                    .AsNoTracking()
+                    .Where(d=>d.CustomerModelId==id).AsAsyncEnumerable();
+
+
+
+                return ordersOfTheCustomer;
             }
         }
 

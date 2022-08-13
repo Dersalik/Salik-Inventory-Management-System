@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Salik_Inventory_Management_System.UI.DataAccess.Repository.IRepository
+namespace Salik_Inventory_Management_System.UI.Presenters
 {
-    public class ICustomerRepository 
+    public class HomePresenter
     {
+        
     }
 }

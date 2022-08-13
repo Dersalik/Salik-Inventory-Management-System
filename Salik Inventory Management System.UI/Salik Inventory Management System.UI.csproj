@@ -2,18 +2,17 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
     <RootNamespace>Salik_Inventory_Management_System.UI</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <StartupObject>Salik_Inventory_Management_System.UI.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
     <Folder Include="DataAccess\Data\" />
-    <Folder Include="Services\" />
     <Folder Include="Views\" />
-    <Folder Include="Presenters\" />
   </ItemGroup>
 
   <ItemGroup>

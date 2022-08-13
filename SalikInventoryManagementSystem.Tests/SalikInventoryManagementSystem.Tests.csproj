@@ -21,8 +21,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Salik Inventory Management System.UI\Salik Inventory Management System.UI.csproj" />
-  </ItemGroup>
-
 </Project>

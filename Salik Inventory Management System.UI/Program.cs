@@ -20,14 +20,15 @@ namespace Salik_Inventory_Management_System.UI
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             ConfigureServices();
-
+            var db = GetService<InventoryManagementSystemDbContext>();
+            db.Database.EnsureCreatedAsync().Wait();
            
             Application.Run(new Form1());
         }
        public static ConfigurationForDatabase Config = new ConfigurationForDatabase();
         public static string ConncetionString = Config.configuration.GetConnectionString("DefaultConnection");
         public static  IServiceProvider ServiceProvider { get;  set; }
-        static void ConfigureServices()
+        public static void ConfigureServices()
         {
             var services = new ServiceCollection();
             

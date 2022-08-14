@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Salik_Inventory_Management_System.UI.Presenters
+namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
 {
-    public class HomePresenter
+    public interface IPacketView
     {
-        
+        public void Show();
     }
 }

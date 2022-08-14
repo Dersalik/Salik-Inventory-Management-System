@@ -5,6 +5,9 @@ using Salik_Inventory_Management_System.UI.Configuration;
 using Salik_Inventory_Management_System.UI.DataAccess;
 using Salik_Inventory_Management_System.UI.DataAccess.Repository;
 using Salik_Inventory_Management_System.UI.Models;
+using Salik_Inventory_Management_System.UI.Presenters;
+using Salik_Inventory_Management_System.UI.Views;
+using Salik_Inventory_Management_System.UI.Views.view_Interfaces;
 
 namespace Salik_Inventory_Management_System.UI
 {
@@ -22,8 +25,9 @@ namespace Salik_Inventory_Management_System.UI
             ConfigureServices();
             var db = GetService<InventoryManagementSystemDbContext>();
             db.Database.EnsureCreatedAsync().Wait();
-           
-            Application.Run(new Form1());
+            IMainView mainView = GetService<MainView>();
+            new MainPresenter(mainView);
+            Application.Run((Form)mainView);
         }
        public static ConfigurationForDatabase Config = new ConfigurationForDatabase();
         public static string ConncetionString = Config.configuration.GetConnectionString("DefaultConnection");
@@ -35,6 +39,7 @@ namespace Salik_Inventory_Management_System.UI
             //dependencies
             services.AddDbContext<InventoryManagementSystemDbContext>(options=>options.UseSqlServer(ConncetionString));
             services.AddSingleton<SalikInventoryManagementDbContextFactory>();
+            services.AddSingleton<MainView>();
             ServiceProvider=services.BuildServiceProvider();
         }
 
@@ -42,5 +47,7 @@ namespace Salik_Inventory_Management_System.UI
         {
             return (T?)ServiceProvider.GetService(typeof(T));
         }
+
+       
     }
 }

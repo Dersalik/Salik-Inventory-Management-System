@@ -57,12 +57,14 @@ namespace Salik_Inventory_Management_System.Tests.ServicesUnitTests
 
             CustomerModel testobj = new CustomerModel() { FullName = "قادر ره ش" };
             service.Add(testobj);
-            var cus = await service.GetFirstOrDefaultFully(4);
+            var all = await service.GetAll();
+            int id=all.ElementAt(all.Count() - 1).Id;
+            var cus = await service.GetFirstOrDefaultFully(id);
           
             cus.FullName = "changed";
-            service.Update(cus);
+           await service.Update(cus);
 
-            var cusAfterUpdate = await service.GetFirstOrDefaultFully(4);
+            var cusAfterUpdate = await service.GetFirstOrDefaultFully(id);
 
 
             Assert.False(cus.FullName != cusAfterUpdate.FullName);

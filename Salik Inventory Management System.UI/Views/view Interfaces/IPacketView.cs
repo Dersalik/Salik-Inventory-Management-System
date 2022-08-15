@@ -8,6 +8,36 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
 {
     public interface IPacketView
     {
+        //for adding new
+
+         string? ItemName { get; set; }
+
+        string ItemPrice { get; set; }
+
+        string ItemQuantity { get; set; }
+         string? Description { get; set; }
+        //for edit
+        string IdEdit { get; set; }
+        string? ItemNameedit { get; set; }
+
+        string ItemPriceedit { get; set; }
+
+        string ItemQuantityedit { get; set; }
+        string? Descriptionedit { get; set; }
+
+        string searchValue { get; set; }                    
+        bool IsSuccessful { get; set; }
+        string Message { get; set; }
+
+        event EventHandler SearchEvent;
+        event EventHandler editEvent;
+        event EventHandler saveEditedEvent;
+        event EventHandler ReturnToHomeEvent;
+        event EventHandler deleteEvent;
+        event EventHandler addEvent;
+        event EventHandler saveNewlyaddedEvent;
+        event EventHandler UpdateQuantity;
+        void setPacketBindingSource(BindingSource packetList);
         public void Show();
     }
 }

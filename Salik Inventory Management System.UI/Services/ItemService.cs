@@ -57,5 +57,9 @@ namespace Salik_Inventory_Management_System.UI.Services
         {
             return await repository.Update(entity);
         }
+        public async Task<IAsyncEnumerable<ItemModel>> SearchByName(string searchValue)
+        {
+            return await repository.SearchByName(searchValue);
+        }
     }
 }

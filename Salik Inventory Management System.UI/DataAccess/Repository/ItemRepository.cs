@@ -23,7 +23,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
             {
                 var fullListwithAttributtes = context.Items.Include(d => d.ItemOrderedList)
                     .AsNoTracking().AsAsyncEnumerable();
-
+                 
                  return fullListwithAttributtes;
             }
         }
@@ -39,6 +39,15 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
             }
         }
 
+        public async Task<IAsyncEnumerable<ItemModel>> SearchByName(string searchValue)
+        {
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+           
+                var searchResult =  context.Items.Where(d => d.ItemName.Contains(searchValue)).AsAsyncEnumerable();
+               
+                return searchResult;
+           
+        }
 
     }
 }

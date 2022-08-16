@@ -30,7 +30,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
         {
            using(InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-               var ToBeReturned=await context.Set<T>().AddAsync(entity);
+                await context.Set<T>().AddAsync(entity);
                 await context.SaveChangesAsync();
                 return true;
             }
@@ -40,7 +40,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var ToBeReturned = context.Set<T>().Remove(entity);
+                 context.Set<T>().Remove(entity);
                 await context.SaveChangesAsync();
                 return true;
             }

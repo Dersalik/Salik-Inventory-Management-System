@@ -28,12 +28,34 @@ namespace Salik_Inventory_Management_System.UI.Views
 
         private void AssociateAndRaiseEvents()
         {
-            searchbtn.Click += delegate { SearchEvent?.Invoke(this,EventArgs.Empty); };
+
+
+            searchtxt.TextChanged += delegate
+            {
+                SearchEvent?.Invoke(this, EventArgs.Empty);
+
+                if (IsSuccessful==false)
+                {
+                    MessageBox.Show(Message);
+                }
+            };
+
+            searchbtn.Click += delegate { SearchEvent?.Invoke(this,EventArgs.Empty);
+
+                if (IsSuccessful == false)
+                {
+                    MessageBox.Show(Message);
+                }
+            };
             searchtxt.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)
                 {
                     SearchEvent?.Invoke(this, EventArgs.Empty);
+                    if (IsSuccessful == false)
+                    {
+                        MessageBox.Show(Message);
+                    };
                 }
             };
 
@@ -49,6 +71,8 @@ namespace Salik_Inventory_Management_System.UI.Views
                 PacketTab.TabPages.Add(EditPacketTab);
             };
 
+           
+
             saveBtn.Click += delegate
             {
                 saveEditedEvent?.Invoke(this, EventArgs.Empty);
@@ -60,7 +84,20 @@ namespace Salik_Inventory_Management_System.UI.Views
                 MessageBox.Show(Message);
             };
 
-            
+            deletebtn.Click += async delegate
+            {
+               
+                var result = MessageBox.Show("ده ته ويت كالاى دياريكراو ره شكه يته وه", "اكادارى",
+                   MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                  //  deleteEvent?.Invoke(this, EventArgs.Empty);
+                    await Task.Run(() => deleteEvent?.Invoke(this, EventArgs.Empty));
+
+                }
+
+                
+            };
 
             returnbtnNew.Click += delegate
             {
@@ -78,15 +115,7 @@ namespace Salik_Inventory_Management_System.UI.Views
                  PacketTab.TabPages.Add(PacketHomeTab);
              };
 
-            deletebtn.Click += delegate
-            {
-                var result = MessageBox.Show("ده ته ويت با كه تى دياريكراو ره شكريته وه؟", "اكا دارى", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if(result == DialogResult.Yes)
-                {
-                    deleteEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
-                }
-            };
+         
 
             addnewpacketbtn.Click += delegate
             {

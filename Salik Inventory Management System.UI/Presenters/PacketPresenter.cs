@@ -21,20 +21,115 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             this.service = new ItemService();
             this.PacketBindingSource = new BindingSource();
             this.view.SearchEvent += searchItem;
-            this.view.saveNewlyaddedEvent += addnewpacketbtn;
+            this.view.saveNewlyaddedEvent += addnewpacket;
+            this.view.editEvent += LoadSelectedItemToEdit;
+            this.view.saveEditedEvent +=  saveEditedItem;
+            this.view.deleteEvent += DeleteItemAsync;
             this.view.setPacketBindingSource(PacketBindingSource);
             LoadAllPackets();
             this.view.Show();
         }
 
-        private async void addnewpacketbtn(object? sender, EventArgs e)
+        private async void DeleteItemAsync(object? sender, EventArgs e)
+        {
+            try
+            {
+                ItemModel itemToDelete = (ItemModel)PacketBindingSource.Current;
+               var fully= await service.GetFirstOrDefaultFully(itemToDelete.Id);
+             
+                if (fully.ItemOrderedList.Count ==0)
+                {
+                    view.Message = "به سه ركه وتوى ره شكراوه";
+                    var d= await service.Delete(fully);
+                    if (d)
+                    {
+                        view.Message = "به سه ركه وتوى ره شكراوه";
+                        view.IsSuccessful = true;
+                        MessageBox.Show(view.Message);
+                    }
+                    LoadAllPackets();
+                    
+
+                }
+                else
+                {
+                    view.IsSuccessful = false;
+                    view.Message = "ناتوانريت ره شبكريته وه";
+                    MessageBox.Show(view.Message);
+
+                }
+            }
+            catch(Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "سه ر كه وتوو نه بوو";
+                MessageBox.Show(view.Message);
+
+            }
+        }
+
+        private void LoadSelectedItemToEdit(object? sender, EventArgs e)
+        {
+            ItemModel itemToEdit = (ItemModel)PacketBindingSource.Current;
+            view.IdEdit = itemToEdit.Id.ToString();
+            view.ItemNameedit = itemToEdit.ItemName;
+            view.ItemPriceedit = itemToEdit.ItemPrice.ToString();
+            view.ItemQuantityedit = itemToEdit.ItemQuantity.ToString();
+            view.Descriptionedit = itemToEdit.Description;
+        }
+
+        private async void saveEditedItem(object? sender, EventArgs e)
+        {
+            try
+            {
+                
+
+                ItemModel ItemToUpdate = new ItemModel();
+                ItemToUpdate.Id=Convert.ToInt32(view.IdEdit);
+                ItemToUpdate.ItemName = this.view.ItemNameedit;
+                ItemToUpdate.Description = this.view.Descriptionedit;
+                ItemToUpdate.ItemPrice = Decimal.Parse(this.view.ItemPriceedit);
+                ItemToUpdate.ItemQuantity = double.Parse(this.view.ItemQuantityedit);
+
+                try
+                {
+
+
+                    view.IsSuccessful = true;
+                    view.Message = "به سه ركه وتوى ده ست كارى كرا";
+                  
+                    await service.Update(ItemToUpdate);
+
+                   await LoadAllPackets();
+                    cleanAddNewFields();
+
+                }
+                catch (Exception ex)
+                {
+                    view.IsSuccessful = false;
+                    view.Message = "سه ر كه وتوو نه بوو" + " " + ex.Message + " " + ex.StackTrace;
+                }
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "زانياريه كان به هه له بركراو نه ته وه";
+            }
+        }
+
+    
+
+
+        
+
+        //event EventHandler UpdateQuantity;
+        private async void addnewpacket(object? sender, EventArgs e)
         {
 
 
             try
             {
-                double.Parse(this.view.ItemQuantity);
-                Decimal.Parse(this.view.ItemPrice);
+           
 
                 ItemModel ItemToAdd = new ItemModel();
                 ItemToAdd.ItemName = this.view.ItemName;
@@ -66,13 +161,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 view.IsSuccessful = false;
                 view.Message = "زانياريه كان به هه له بركراو نه ته وه";
             }
-          
-
             
-            
-
-           
-           
         }
 
         private void cleanAddNewFields()
@@ -84,14 +173,8 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
 
         }
-        //event EventHandler editEvent;
-        //event EventHandler saveEditedEvent;
-        //event EventHandler ReturnToHomeEvent;
-        //event EventHandler deleteEvent;
-        //event EventHandler addEvent;
-        //event EventHandler saveNewlyaddedEvent;
-        //event EventHandler UpdateQuantity;
-        private async void LoadAllPackets()
+   
+        private async Task LoadAllPackets()
         {
             var result =await service.GetAll();
             ItemList = result.ToList();
@@ -101,13 +184,32 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         {
             bool emptyValue = string.IsNullOrEmpty(this.view.searchValue);
 
-            if (emptyValue == false)
+            try
             {
-                var result =await service.SearchByName(this.view.searchValue);
-                var df = (IEnumerable<ItemModel>)result;
-                ItemList = df.ToList(); 
+                if (emptyValue == false)
+                {
+                    view.IsSuccessful = true;
+                    var result = await service.SearchByName(this.view.searchValue);
+                    var df = (IEnumerable<ItemModel>)result;
+                    
+                    ItemList = df.ToList();
+                   
+                }
+                else
+                {
+                    view.IsSuccessful = true;
+                    ItemList = await service.GetAll();
+                   
+                }
+                
+
+                PacketBindingSource.DataSource = ItemList;
             }
-           PacketBindingSource.DataSource= ItemList;
+            catch(Exception ex)
+            {
+               view.Message=ex.Message + " " + ex.StackTrace;
+                view.IsSuccessful = false;
+            }
         }
     }
 }

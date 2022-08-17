@@ -15,7 +15,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         private ItemService service;
         private BindingSource PacketBindingSource;
         private IEnumerable<ItemModel> ItemList;
-        public PacketPresenter(IPacketView view)
+        public  PacketPresenter(IPacketView view)
         {
             this.view = view;
             this.service = new ItemService();
@@ -25,8 +25,11 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             this.view.editEvent += LoadSelectedItemToEdit;
             this.view.saveEditedEvent +=  saveEditedItem;
             this.view.deleteEvent += DeleteItemAsync;
+            this.view.RefreshGrid += LoadAllPacketsAsync;
             this.view.setPacketBindingSource(PacketBindingSource);
-            LoadAllPackets();
+            this.view.cleanNewFormsBoxes += cleanAddNewFields;
+
+             LoadAllPacketsAsync();
             this.view.Show();
         }
 
@@ -34,9 +37,10 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         {
             try
             {
+              //  Thread.Sleep(3434224);
                 ItemModel itemToDelete = (ItemModel)PacketBindingSource.Current;
                var fully= await service.GetFirstOrDefaultFully(itemToDelete.Id);
-             
+         
                 if (fully.ItemOrderedList.Count ==0)
                 {
                     view.Message = "به سه ركه وتوى ره شكراوه";
@@ -47,7 +51,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                         view.IsSuccessful = true;
                         MessageBox.Show(view.Message);
                     }
-                    LoadAllPackets();
+                   //await LoadAllPacketsAsync();
                     
 
                 }
@@ -100,8 +104,10 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                   
                     await service.Update(ItemToUpdate);
 
-                   await LoadAllPackets();
-                    cleanAddNewFields();
+                    //await LoadAllPacketsAsync();
+
+                   
+                    //cleanAddNewFields();
 
                 }
                 catch (Exception ex)
@@ -146,8 +152,8 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                     await service.Add(ItemToAdd);
 
 
-                    LoadAllPackets();
-                    cleanAddNewFields();
+                    //LoadAllPacketsAsync();
+                    ////cleanAddNewFields();
 
                 }
                 catch (Exception ex)
@@ -164,7 +170,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             
         }
 
-        private void cleanAddNewFields()
+        private void cleanAddNewFields(object? sender, EventArgs e)
         {
             view.ItemName = "";
             view.ItemQuantity = "";
@@ -174,11 +180,19 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
         }
    
-        private async Task LoadAllPackets()
+        private async void LoadAllPacketsAsync(object? sender, EventArgs e)
         {
+            
             var result =await service.GetAll();
             ItemList = result.ToList();
             PacketBindingSource.DataSource=ItemList;
+        }
+         private async void LoadAllPacketsAsync()
+        {
+
+            var result = await  service.GetAll();
+            ItemList = result.ToList();
+            PacketBindingSource.DataSource = ItemList;
         }
         private async void searchItem(object? sender, EventArgs e)
         {

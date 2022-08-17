@@ -20,16 +20,19 @@ namespace Salik_Inventory_Management_System.UI.Views
             
             InitializeComponent();
             AssociateAndRaiseEvents();
-
             PacketTab.TabPages.Remove(addingPacketTab);
             PacketTab.TabPages.Remove(EditPacketTab);
 
+            
+            
+            
         }
 
         private void AssociateAndRaiseEvents()
         {
 
 
+            
             searchtxt.TextChanged += delegate
             {
                 SearchEvent?.Invoke(this, EventArgs.Empty);
@@ -73,9 +76,10 @@ namespace Salik_Inventory_Management_System.UI.Views
 
            
 
-            saveBtn.Click += delegate
+            saveBtn.Click +=  async delegate
             {
                 saveEditedEvent?.Invoke(this, EventArgs.Empty);
+                //await Task.Run(() => saveEditedEvent?.Invoke(this, EventArgs.Empty));
                 if (isSuccessful)
                 {
                     PacketTab.TabPages.Remove(EditPacketTab);
@@ -84,16 +88,18 @@ namespace Salik_Inventory_Management_System.UI.Views
                 MessageBox.Show(Message);
             };
 
-            deletebtn.Click += async delegate
+            deletebtn.Click +=  async delegate
             {
                
                 var result = MessageBox.Show("ده ته ويت كالاى دياريكراو ره شكه يته وه", "اكادارى",
                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                  //  deleteEvent?.Invoke(this, EventArgs.Empty);
-                    await Task.Run(() => deleteEvent?.Invoke(this, EventArgs.Empty));
-
+                  
+                    //  deleteEvent?.Invoke(this, EventArgs.Empty);
+                  
+                    Task d=await Task.Run(()=>deleteEvent?.Invoke(this, EventArgs.Empty));
+                   
                 }
 
                 
@@ -117,15 +123,20 @@ namespace Salik_Inventory_Management_System.UI.Views
 
          
 
-            addnewpacketbtn.Click += delegate
+            addnewpacketbtn.Click += async delegate
             {
-                saveNewlyaddedEvent?.Invoke(this, EventArgs.Empty);
+                //saveNewlyaddedEvent?.Invoke(this, EventArgs.Empty);
+                await Task.Run(() => saveNewlyaddedEvent?.Invoke(this, EventArgs.Empty));
                 if (isSuccessful)
                 {
                     PacketTab.TabPages.Remove(addingPacketTab);
                     PacketTab.TabPages.Add(PacketHomeTab);
                 }
+               
+              
+                RefreshGrid.Invoke(this, EventArgs.Empty);
                 MessageBox.Show(Message);
+                cleanNewFormsBoxes.Invoke(this, EventArgs.Empty);
             };
         }
 
@@ -140,6 +151,8 @@ namespace Salik_Inventory_Management_System.UI.Views
         public event EventHandler saveEditedEvent;
         public event EventHandler ReturnToHomeEvent;
         public event EventHandler saveNewlyaddedEvent;
+        public Task EventHandler RefreshGrid;
+        public event EventHandler cleanNewFormsBoxes;
 
         public string? ItemName { get => nametxt.Text; set => nametxt.Text=value; }
         public string ItemPrice { get => pricetxt.Text; set => pricetxt.Text=value; }

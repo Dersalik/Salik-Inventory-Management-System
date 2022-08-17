@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Salik_Inventory_Management_System.UI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
     {
         //for adding new
 
-         string? ItemName { get; set; }
+        string? ItemName { get; set; }
 
         string ItemPrice { get; set; }
 
@@ -37,6 +38,10 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         event EventHandler addEvent;
         event EventHandler saveNewlyaddedEvent;
         event EventHandler UpdateQuantity;
+
+        event  EventHandler RefreshGrid;
+
+        event EventHandler cleanNewFormsBoxes;
         void setPacketBindingSource(BindingSource packetList);
         public void Show();
     }

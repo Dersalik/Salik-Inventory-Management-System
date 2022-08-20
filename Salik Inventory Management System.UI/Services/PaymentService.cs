@@ -17,45 +17,45 @@ namespace Salik_Inventory_Management_System.UI.Services
             repository = new PaymentRepository();
         }
 
-        public IAsyncEnumerable<Payment> GetAllFully()
+        public IEnumerable<Payment> GetAllFully()
         {
             return repository.GetAllFully();
         }
 
-        public async Task<Payment> GetFirstOrDefaultFully(int id)
+        public Payment GetFirstOrDefaultFully(int id)
         {
-            return await repository.GetFirstOrDefaultFully(id);
+            return  repository.GetFirstOrDefaultFully(id);
         }
 
 
-        public async Task<bool> Add(Payment entity)
+        public bool Add(Payment entity)
         {
-            return await repository.Add(entity);
+            return  repository.Add(entity);
         }
 
-        public async Task<bool> Delete(Payment entity)
+        public bool Delete(Payment entity)
         {
-            return await repository.Delete(entity);
+            return  repository.Delete(entity);
         }
 
-        public async Task<IEnumerable<Payment>> GetAll()
+        public IEnumerable<Payment> GetAll()
         {
-            return await repository.GetAll();
+            return  repository.GetAll();
         }
 
-        public async Task<Payment> GetFirstOrDefault(Expression<Func<Payment, bool>> filter)
+        public Payment GetFirstOrDefault(Expression<Func<Payment, bool>> filter)
         {
-            return await repository.GetFirstOrDefault(filter);
+            return  repository.GetFirstOrDefault(filter);
         }
 
-        public async Task<bool> RemoveRange(IEnumerable<Payment> entity)
+        public bool RemoveRange(IEnumerable<Payment> entity)
         {
-            return await repository.RemoveRange(entity);
+            return  repository.RemoveRange(entity);
         }
 
-        public async Task<Payment> Update(Payment entity)
+        public Payment Update(Payment entity)
         {
-            return await repository.Update(entity);
+            return  repository.Update(entity);
         }
     }
 }

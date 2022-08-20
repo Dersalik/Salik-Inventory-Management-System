@@ -17,24 +17,25 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
-        public  IAsyncEnumerable<InvoiceModel> GetAllFully()
+        public  IEnumerable<InvoiceModel> GetAllFully()
         {
-            using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
-            {
-                var fullListwithAttributtes =  context.Invoices.Include(c => c.order).AsNoTracking().AsAsyncEnumerable();
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            
+                var fullListwithAttributtes =  context.Invoices.Include(c => c.order).AsNoTracking().AsEnumerable();
 
                  return fullListwithAttributtes;
-            }
+            
         }
 
-        public async Task<InvoiceModel> GetFirstOrDefaultFully(int id)
+        public InvoiceModel GetFirstOrDefaultFully(int id)
         {
-            using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
-            {
-                var getfirstordefault = await context.Invoices.Include(c => c.order).AsNoTracking().FirstOrDefaultAsync(e=>e.Id==id);
+           InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+
+
+           var getfirstordefault =  context.Invoices.Include(c => c.order).AsNoTracking().FirstOrDefault(e=>e.Id==id);
 
                 return getfirstordefault;
-            }
+            
         }
 
 

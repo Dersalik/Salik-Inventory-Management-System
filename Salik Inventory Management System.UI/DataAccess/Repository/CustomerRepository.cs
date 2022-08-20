@@ -17,7 +17,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
-        public IAsyncEnumerable<CustomerModel> GetAllFully()
+        public IEnumerable<CustomerModel> GetAllFully()
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
@@ -26,22 +26,22 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
                    .Include(d => d.Orders)
                     .ThenInclude(d => d.Invoices)
                    .Include(k=>k.Orders)
-                    .ThenInclude(s=>s.orderedItems).AsNoTracking().AsAsyncEnumerable();
+                    .ThenInclude(s=>s.orderedItems).AsNoTracking().AsEnumerable();
 
                  return fullListwithAttributtes;
             }
         }
 
-        public async Task<CustomerModel> GetFirstOrDefaultFully(int id)
+        public CustomerModel GetFirstOrDefaultFully(int id)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var firstordefault = await context.Customers.
+                var firstordefault =  context.Customers.
                    Include(d => d.payments)
                    .Include(d => d.Orders)
                     .ThenInclude(d => d.Invoices)
                    .Include(k => k.Orders)
-                    .ThenInclude(s => s.orderedItems).AsNoTracking().FirstOrDefaultAsync(k=>k.Id==id);
+                    .ThenInclude(s => s.orderedItems).AsNoTracking().FirstOrDefault(k=>k.Id==id);
 
                 return firstordefault;
             }

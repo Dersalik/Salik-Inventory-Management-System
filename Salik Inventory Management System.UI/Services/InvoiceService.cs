@@ -18,45 +18,45 @@ namespace Salik_Inventory_Management_System.UI.Services
             repository = new InvoiceRepository();
         }
         
-        public IAsyncEnumerable<InvoiceModel> GetAllFully()
+        public IEnumerable<InvoiceModel> GetAllFully()
         {
             return repository.GetAllFully();
         }
 
-        public async Task<InvoiceModel> GetFirstOrDefaultFully(int id)
+        public InvoiceModel GetFirstOrDefaultFully(int id)
         {
-            return await repository.GetFirstOrDefaultFully(id);
+            return  repository.GetFirstOrDefaultFully(id);
         }
 
 
-        public async Task<bool> Add(InvoiceModel entity)
+        public bool Add(InvoiceModel entity)
         {
-            return await repository.Add(entity);
+            return  repository.Add(entity);
         }
 
-        public async Task<bool> Delete(InvoiceModel entity)
+        public bool Delete(InvoiceModel entity)
         {
-            return await repository.Delete(entity);
+            return  repository.Delete(entity);
         }
 
-        public async Task<IEnumerable<InvoiceModel>> GetAll()
+        public IEnumerable<InvoiceModel> GetAll()
         {
-            return await repository.GetAll();
+            return  repository.GetAll();
         }
 
-        public async Task<InvoiceModel> GetFirstOrDefault(Expression<Func<InvoiceModel, bool>> filter)
+        public InvoiceModel GetFirstOrDefault(Expression<Func<InvoiceModel, bool>> filter)
         {
-            return await repository.GetFirstOrDefault(filter);
+            return  repository.GetFirstOrDefault(filter);
         }
 
-        public async Task<bool> RemoveRange(IEnumerable<InvoiceModel> entity)
+        public bool RemoveRange(IEnumerable<InvoiceModel> entity)
         {
-            return await repository.RemoveRange(entity);
+            return  repository.RemoveRange(entity);
         }
 
-        public async Task<InvoiceModel> Update(InvoiceModel entity)
+        public InvoiceModel Update(InvoiceModel entity)
         {
-            return await repository.Update(entity);
+            return  repository.Update(entity);
         }
     }
 }

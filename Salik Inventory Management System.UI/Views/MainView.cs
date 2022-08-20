@@ -45,5 +45,10 @@ namespace Salik_Inventory_Management_System.UI.Views
         {
 
         }
+
+        private void PacketNav_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

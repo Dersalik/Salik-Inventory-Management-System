@@ -29,7 +29,7 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         string searchValue { get; set; }                    
         bool IsSuccessful { get; set; }
         string Message { get; set; }
-
+        string updateQuantityPrompt { get; set; }
         event EventHandler SearchEvent;
         event EventHandler editEvent;
         event EventHandler saveEditedEvent;
@@ -40,8 +40,13 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         event EventHandler UpdateQuantity;
 
         event  EventHandler RefreshGrid;
-
         event EventHandler cleanNewFormsBoxes;
+        event EventHandler sortByPrice;
+        event EventHandler sortByQuantity;
+
+        bool byprie { get;  }
+        bool byquantity { get;  }
+        bool nosort { get;  }
         void setPacketBindingSource(BindingSource packetList);
         public void Show();
     }

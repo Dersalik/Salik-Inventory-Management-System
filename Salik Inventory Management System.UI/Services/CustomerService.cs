@@ -17,45 +17,45 @@ namespace Salik_Inventory_Management_System.UI.Services
             repository=new CustomerRepository();
         }
 
-        public IAsyncEnumerable<CustomerModel> GetAllFully()
+        public IEnumerable<CustomerModel> GetAllFully()
         {
             return repository.GetAllFully();
         }
 
-        public async Task<CustomerModel> GetFirstOrDefaultFully(int id)
+        public CustomerModel GetFirstOrDefaultFully(int id)
         {
-            return await repository.GetFirstOrDefaultFully(id);
+            return  repository.GetFirstOrDefaultFully(id);
         }
 
 
-        public async Task<bool> Add(CustomerModel entity)
+        public bool Add(CustomerModel entity)
         {
-            return await repository.Add(entity);
+            return  repository.Add(entity);
         }
 
-        public async Task<bool> Delete(CustomerModel entity)
+        public bool Delete(CustomerModel entity)
         {
-           return await repository.Delete(entity);
+           return  repository.Delete(entity);
         }
 
-        public async Task<IEnumerable<CustomerModel>> GetAll()
+        public IEnumerable<CustomerModel> GetAll()
         {
-            return await  repository.GetAll();
+            return   repository.GetAll();
         }
 
-        public async Task<CustomerModel> GetFirstOrDefault(Expression<Func<CustomerModel, bool>> filter)
+        public CustomerModel GetFirstOrDefault(Expression<Func<CustomerModel, bool>> filter)
         {
-            return  await repository.GetFirstOrDefault(filter);
+            return   repository.GetFirstOrDefault(filter);
         }
 
-        public async Task<bool> RemoveRange(IEnumerable<CustomerModel> entity)
+        public bool RemoveRange(IEnumerable<CustomerModel> entity)
         {
-            return await repository.RemoveRange(entity);
+            return  repository.RemoveRange(entity);
         }
 
-        public async Task<CustomerModel> Update(CustomerModel entity)
+        public CustomerModel Update(CustomerModel entity)
         {
-           return await repository.Update(entity);
+           return  repository.Update(entity);
         }
     }
 }

@@ -35,6 +35,8 @@
             this.itemModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.PacketTab = new System.Windows.Forms.TabControl();
             this.PacketHomeTab = new System.Windows.Forms.TabPage();
+            this.sortByQuantityRadioBtn = new System.Windows.Forms.RadioButton();
+            this.sortByPriceRadiotBtn = new System.Windows.Forms.RadioButton();
             this.addingQuantityBtn = new System.Windows.Forms.Button();
             this.deletebtn = new System.Windows.Forms.Button();
             this.editbtn = new System.Windows.Forms.Button();
@@ -71,6 +73,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.NoSortRadioBtn = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.itemModelBindingSource)).BeginInit();
             this.PacketTab.SuspendLayout();
             this.PacketHomeTab.SuspendLayout();
@@ -97,6 +100,9 @@
             // 
             // PacketHomeTab
             // 
+            this.PacketHomeTab.Controls.Add(this.NoSortRadioBtn);
+            this.PacketHomeTab.Controls.Add(this.sortByQuantityRadioBtn);
+            this.PacketHomeTab.Controls.Add(this.sortByPriceRadiotBtn);
             this.PacketHomeTab.Controls.Add(this.addingQuantityBtn);
             this.PacketHomeTab.Controls.Add(this.deletebtn);
             this.PacketHomeTab.Controls.Add(this.editbtn);
@@ -111,13 +117,39 @@
             this.PacketHomeTab.TabIndex = 0;
             this.PacketHomeTab.Text = "ليستى باكه ته كان";
             this.PacketHomeTab.UseVisualStyleBackColor = true;
+            this.PacketHomeTab.Click += new System.EventHandler(this.PacketHomeTab_Click);
+            // 
+            // sortByQuantityRadioBtn
+            // 
+            this.sortByQuantityRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sortByQuantityRadioBtn.AutoSize = true;
+            this.sortByQuantityRadioBtn.Location = new System.Drawing.Point(483, 210);
+            this.sortByQuantityRadioBtn.Name = "sortByQuantityRadioBtn";
+            this.sortByQuantityRadioBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.sortByQuantityRadioBtn.Size = new System.Drawing.Size(157, 24);
+            this.sortByQuantityRadioBtn.TabIndex = 13;
+            this.sortByQuantityRadioBtn.Text = "ريزكردن به بيي زماره";
+            this.sortByQuantityRadioBtn.UseVisualStyleBackColor = true;
+            // 
+            // sortByPriceRadiotBtn
+            // 
+            this.sortByPriceRadiotBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sortByPriceRadiotBtn.AutoSize = true;
+            this.sortByPriceRadiotBtn.Location = new System.Drawing.Point(639, 210);
+            this.sortByPriceRadiotBtn.Name = "sortByPriceRadiotBtn";
+            this.sortByPriceRadiotBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.sortByPriceRadiotBtn.Size = new System.Drawing.Size(147, 24);
+            this.sortByPriceRadiotBtn.TabIndex = 12;
+            this.sortByPriceRadiotBtn.Text = "ريزكردن به بيي نرخ";
+            this.sortByPriceRadiotBtn.UseVisualStyleBackColor = true;
+            this.sortByPriceRadiotBtn.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // addingQuantityBtn
             // 
             this.addingQuantityBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addingQuantityBtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("addingQuantityBtn.BackgroundImage")));
             this.addingQuantityBtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.addingQuantityBtn.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.addingQuantityBtn.Image = ((System.Drawing.Image)(resources.GetObject("addingQuantityBtn.Image")));
+            this.addingQuantityBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.addingQuantityBtn.Location = new System.Drawing.Point(298, 266);
             this.addingQuantityBtn.Name = "addingQuantityBtn";
             this.addingQuantityBtn.Size = new System.Drawing.Size(207, 52);
@@ -130,8 +162,8 @@
             // deletebtn
             // 
             this.deletebtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.deletebtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deletebtn.BackgroundImage")));
             this.deletebtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.deletebtn.Image = ((System.Drawing.Image)(resources.GetObject("deletebtn.Image")));
             this.deletebtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.deletebtn.Location = new System.Drawing.Point(158, 266);
             this.deletebtn.Name = "deletebtn";
@@ -144,8 +176,8 @@
             // editbtn
             // 
             this.editbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.editbtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("editbtn.BackgroundImage")));
             this.editbtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.editbtn.Image = ((System.Drawing.Image)(resources.GetObject("editbtn.Image")));
             this.editbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.editbtn.Location = new System.Drawing.Point(511, 266);
             this.editbtn.Name = "editbtn";
@@ -154,6 +186,7 @@
             this.editbtn.Text = "ده ست كارى";
             this.editbtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.editbtn.UseVisualStyleBackColor = true;
+            this.editbtn.Click += new System.EventHandler(this.editbtn_Click);
             // 
             // addbtn
             // 
@@ -249,7 +282,7 @@
             // 
             this.itemNameDataGridViewTextBoxColumn.DataPropertyName = "ItemName";
             this.itemNameDataGridViewTextBoxColumn.HeaderText = "ناوى با كه ت";
-            this.itemNameDataGridViewTextBoxColumn.MinimumWidth = 6;
+            this.itemNameDataGridViewTextBoxColumn.MinimumWidth = 8;
             this.itemNameDataGridViewTextBoxColumn.Name = "itemNameDataGridViewTextBoxColumn";
             this.itemNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -304,7 +337,7 @@
             // IdPacket
             // 
             this.IdPacket.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.IdPacket.Location = new System.Drawing.Point(207, 33);
+            this.IdPacket.Location = new System.Drawing.Point(250, 33);
             this.IdPacket.Name = "IdPacket";
             this.IdPacket.ReadOnly = true;
             this.IdPacket.Size = new System.Drawing.Size(239, 27);
@@ -314,7 +347,7 @@
             // 
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(513, 33);
+            this.label9.Location = new System.Drawing.Point(556, 33);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(22, 20);
             this.label9.TabIndex = 20;
@@ -351,7 +384,7 @@
             // 
             this.editdes.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editdes.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.editdes.Location = new System.Drawing.Point(120, 219);
+            this.editdes.Location = new System.Drawing.Point(163, 219);
             this.editdes.Multiline = true;
             this.editdes.Name = "editdes";
             this.editdes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -362,7 +395,7 @@
             // 
             this.editquantity.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editquantity.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.editquantity.Location = new System.Drawing.Point(207, 166);
+            this.editquantity.Location = new System.Drawing.Point(250, 166);
             this.editquantity.Name = "editquantity";
             this.editquantity.Size = new System.Drawing.Size(239, 32);
             this.editquantity.TabIndex = 16;
@@ -371,7 +404,7 @@
             // 
             this.editPrice.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editPrice.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.editPrice.Location = new System.Drawing.Point(207, 126);
+            this.editPrice.Location = new System.Drawing.Point(250, 126);
             this.editPrice.Name = "editPrice";
             this.editPrice.Size = new System.Drawing.Size(239, 32);
             this.editPrice.TabIndex = 15;
@@ -380,7 +413,7 @@
             // 
             this.editName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editName.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.editName.Location = new System.Drawing.Point(207, 75);
+            this.editName.Location = new System.Drawing.Point(250, 75);
             this.editName.Name = "editName";
             this.editName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.editName.Size = new System.Drawing.Size(239, 32);
@@ -391,7 +424,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label5.Location = new System.Drawing.Point(513, 222);
+            this.label5.Location = new System.Drawing.Point(556, 222);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(101, 25);
             this.label5.TabIndex = 13;
@@ -402,7 +435,7 @@
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label6.Location = new System.Drawing.Point(513, 169);
+            this.label6.Location = new System.Drawing.Point(556, 169);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 25);
             this.label6.TabIndex = 12;
@@ -413,7 +446,7 @@
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(513, 129);
+            this.label7.Location = new System.Drawing.Point(556, 129);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(39, 25);
             this.label7.TabIndex = 11;
@@ -424,7 +457,7 @@
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label8.Location = new System.Drawing.Point(513, 75);
+            this.label8.Location = new System.Drawing.Point(556, 75);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(110, 25);
             this.label8.TabIndex = 10;
@@ -481,7 +514,7 @@
             // 
             this.destxt.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.destxt.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.destxt.Location = new System.Drawing.Point(62, 161);
+            this.destxt.Location = new System.Drawing.Point(142, 183);
             this.destxt.Multiline = true;
             this.destxt.Name = "destxt";
             this.destxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -493,7 +526,7 @@
             // 
             this.quantitytxt.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.quantitytxt.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.quantitytxt.Location = new System.Drawing.Point(149, 111);
+            this.quantitytxt.Location = new System.Drawing.Point(229, 133);
             this.quantitytxt.Name = "quantitytxt";
             this.quantitytxt.Size = new System.Drawing.Size(239, 32);
             this.quantitytxt.TabIndex = 6;
@@ -502,7 +535,7 @@
             // 
             this.pricetxt.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pricetxt.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.pricetxt.Location = new System.Drawing.Point(149, 68);
+            this.pricetxt.Location = new System.Drawing.Point(229, 90);
             this.pricetxt.Name = "pricetxt";
             this.pricetxt.Size = new System.Drawing.Size(239, 32);
             this.pricetxt.TabIndex = 5;
@@ -511,7 +544,7 @@
             // 
             this.nametxt.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.nametxt.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.nametxt.Location = new System.Drawing.Point(149, 17);
+            this.nametxt.Location = new System.Drawing.Point(229, 39);
             this.nametxt.Name = "nametxt";
             this.nametxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.nametxt.Size = new System.Drawing.Size(239, 32);
@@ -522,7 +555,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(455, 164);
+            this.label4.Location = new System.Drawing.Point(535, 186);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 25);
             this.label4.TabIndex = 3;
@@ -533,7 +566,7 @@
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(455, 111);
+            this.label3.Location = new System.Drawing.Point(535, 133);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 25);
             this.label3.TabIndex = 2;
@@ -544,7 +577,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(455, 71);
+            this.label2.Location = new System.Drawing.Point(535, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 25);
             this.label2.TabIndex = 1;
@@ -555,11 +588,25 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(455, 17);
+            this.label1.Location = new System.Drawing.Point(535, 39);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "ناوى با كه ت";
+            // 
+            // NoSortRadioBtn
+            // 
+            this.NoSortRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoSortRadioBtn.AutoSize = true;
+            this.NoSortRadioBtn.Checked = true;
+            this.NoSortRadioBtn.Location = new System.Drawing.Point(388, 210);
+            this.NoSortRadioBtn.Name = "NoSortRadioBtn";
+            this.NoSortRadioBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.NoSortRadioBtn.Size = new System.Drawing.Size(89, 24);
+            this.NoSortRadioBtn.TabIndex = 14;
+            this.NoSortRadioBtn.TabStop = true;
+            this.NoSortRadioBtn.Text = "ريزنه كراو";
+            this.NoSortRadioBtn.UseVisualStyleBackColor = true;
             // 
             // PacketView
             // 
@@ -591,11 +638,6 @@
         private DataGridView PacketDataGridView;
         private Button searchbtn;
         private TextBox searchtxt;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn itemNameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn itemPriceDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn itemQuantityDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private TabPage addingPacketTab;
         private Button addingQuantityBtn;
         private Button deletebtn;
@@ -623,5 +665,13 @@
         private Label label8;
         private TextBox IdPacket;
         private Label label9;
+        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn itemNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn itemPriceDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn itemQuantityDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
+        private RadioButton sortByQuantityRadioBtn;
+        private RadioButton sortByPriceRadiotBtn;
+        private RadioButton NoSortRadioBtn;
     }
 }

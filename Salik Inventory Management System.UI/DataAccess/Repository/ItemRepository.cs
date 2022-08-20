@@ -17,36 +17,66 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
-        public IAsyncEnumerable<ItemModel> GetAllFully()
+        public IEnumerable<ItemModel> GetAllFully()
         {
-            using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
-            {
+            using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext()) { 
+            
                 var fullListwithAttributtes = context.Items.Include(d => d.ItemOrderedList)
-                    .AsNoTracking().AsAsyncEnumerable();
+                    .AsNoTracking().AsEnumerable();
                  
                  return fullListwithAttributtes;
             }
+
         }
 
-        public async Task<ItemModel> GetFirstOrDefaultFully(int id)
+        public ItemModel GetFirstOrDefaultFully(int id)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var firstordefault = await context.Items.Include(d => d.ItemOrderedList)
-                    .AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
-
+                var firstordefault = context.Items.Include(d => d.ItemOrderedList)
+                                    .AsNoTracking().FirstOrDefault(d => d.Id == id);
                 return firstordefault;
             }
-        }
-
-        public async Task<IAsyncEnumerable<ItemModel>> SearchByName(string searchValue)
-        {
-            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
            
-                var searchResult =  context.Items.Where(d => d.ItemName.Contains(searchValue)).AsAsyncEnumerable();
+            
+        }
+      
+
+        public IEnumerable<ItemModel> SearchByName(string searchValue)
+        {
+
+
+          InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+                var searchResult =  context.Items.AsNoTracking().Where(d => d.ItemName.Contains(searchValue)).AsEnumerable();
                
                 return searchResult;
-           
+            
+
+        }
+
+        public IEnumerable<ItemModel> GetAllSortedByPrice()
+        {
+
+
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            var searchResult = context.Items.AsNoTracking().OrderByDescending(d=>d.ItemPrice).AsEnumerable();
+
+            return searchResult;
+
+
+        }
+
+
+        public IEnumerable<ItemModel> GetAllSortedByQuantity()
+        {
+
+
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            var searchResult = context.Items.AsNoTracking().OrderByDescending(d => d.ItemQuantity).AsEnumerable();
+
+            return searchResult;
+
+
         }
 
     }

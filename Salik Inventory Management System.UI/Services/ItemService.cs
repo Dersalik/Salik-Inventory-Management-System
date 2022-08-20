@@ -17,49 +17,60 @@ namespace Salik_Inventory_Management_System.UI.Services
             repository = new ItemRepository();
         }
         
-        public IAsyncEnumerable<ItemModel> GetAllFully()
+        public IEnumerable<ItemModel> GetAllFully()
         {
             return repository.GetAllFully();
         }
 
-        public async Task<ItemModel> GetFirstOrDefaultFully(int id)
+        public ItemModel GetFirstOrDefaultFully(int id)
         {
-            return await repository.GetFirstOrDefaultFully(id);
+            return  repository.GetFirstOrDefaultFully(id);
         }
 
 
-        public async Task<bool> Add(ItemModel entity)
+        public bool Add(ItemModel entity)
         {
-            return await repository.Add(entity);
+            return  repository.Add(entity);
         }
 
-        public async Task<bool> Delete(ItemModel entity)
+        public bool Delete(ItemModel entity)
         {
-            return await repository.Delete(entity);
+            return  repository.Delete(entity);
         }
 
-        public async Task<IEnumerable<ItemModel>> GetAll()
+        public IEnumerable<ItemModel> GetAll()
         {
-            return await repository.GetAll();
+            return  repository.GetAll();
         }
 
-        public async Task<ItemModel> GetFirstOrDefault(Expression<Func<ItemModel, bool>> filter)
+        public ItemModel GetFirstOrDefault(Expression<Func<ItemModel, bool>> filter)
         {
-            return await repository.GetFirstOrDefault(filter);
+            return  repository.GetFirstOrDefault(filter);
         }
 
-        public async Task<bool> RemoveRange(IEnumerable<ItemModel> entity)
+        public bool RemoveRange(IEnumerable<ItemModel> entity)
         {
-            return await repository.RemoveRange(entity);
+            return  repository.RemoveRange(entity);
         }
 
-        public async Task<ItemModel> Update(ItemModel entity)
+        public ItemModel Update(ItemModel entity)
         {
-            return await repository.Update(entity);
+            return  repository.Update(entity);
         }
-        public async Task<IAsyncEnumerable<ItemModel>> SearchByName(string searchValue)
+        public IEnumerable<ItemModel> SearchByName(string searchValue)
         {
-            return await repository.SearchByName(searchValue);
+            return  repository.SearchByName(searchValue);
         }
+
+
+        public IEnumerable<ItemModel> GetAllSortedByPrice()
+        {
+            return repository.GetAllSortedByPrice();
+        }
+        public IEnumerable<ItemModel> GetAllSortedByQuantity()
+        {
+            return repository.GetAllSortedByQuantity();
+        }
+
     }
 }

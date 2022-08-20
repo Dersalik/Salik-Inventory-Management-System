@@ -17,13 +17,13 @@ namespace Salik_Inventory_Management_System.Tests.ServicesUnitTests
         {
             Program.ConfigureServices();
             CustomerService service = new CustomerService();
-            var resultbefore = await service.GetAll();
+            var resultbefore =  service.GetAll();
             int countbefore = resultbefore.Count();
 
             CustomerModel testobj = new CustomerModel() { FullName = "قادر ره ش" };
 
              service.Add(testobj);
-            var resultafter = await service.GetAll();
+            var resultafter =  service.GetAll();
             int countafter = resultafter.Count();
 
             Assert.False(countbefore < countafter);
@@ -34,7 +34,7 @@ namespace Salik_Inventory_Management_System.Tests.ServicesUnitTests
         {
             Program.ConfigureServices();
             CustomerService service = new CustomerService();
-            var resultbefore = await service.GetAll();
+            var resultbefore =  service.GetAll();
             int countbefore = resultbefore.Count();
 
             CustomerModel testobj = new CustomerModel() { FullName = "قادر ره ش" };
@@ -42,7 +42,7 @@ namespace Salik_Inventory_Management_System.Tests.ServicesUnitTests
             service.Add(testobj);
             service.Delete(testobj);
 
-            var resultafter = await service.GetAll();
+            var resultafter =  service.GetAll();
             int countafter = resultafter.Count();
 
             Assert.Equal(countbefore, countafter);
@@ -52,19 +52,19 @@ namespace Salik_Inventory_Management_System.Tests.ServicesUnitTests
         {
             Program.ConfigureServices();
             CustomerService service = new CustomerService();
-            var resultbefore = await service.GetAll();
+            var resultbefore =  service.GetAll();
             int countbefore = resultbefore.Count();
 
             CustomerModel testobj = new CustomerModel() { FullName = "قادر ره ش" };
             service.Add(testobj);
-            var all = await service.GetAll();
+            var all =  service.GetAll();
             int id=all.ElementAt(all.Count() - 1).Id;
-            var cus = await service.GetFirstOrDefaultFully(id);
+            var cus =  service.GetFirstOrDefaultFully(id);
           
             cus.FullName = "changed";
-           await service.Update(cus);
+            service.Update(cus);
 
-            var cusAfterUpdate = await service.GetFirstOrDefaultFully(id);
+            var cusAfterUpdate =  service.GetFirstOrDefaultFully(id);
 
 
             Assert.False(cus.FullName != cusAfterUpdate.FullName);

@@ -24,7 +24,7 @@ namespace Salik_Inventory_Management_System.UI
             ApplicationConfiguration.Initialize();
             ConfigureServices();
             var db = GetService<InventoryManagementSystemDbContext>();
-            db.Database.EnsureCreatedAsync().Wait();
+            //db.Database.Migrate();
             IMainView mainView = GetService<MainView>();
             new MainPresenter(mainView);
             Application.Run((Form)mainView);

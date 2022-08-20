@@ -8,7 +8,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository.IRepository
 {
     public interface IGetDataFullyWithAttributes<T> where T : class
     {
-        public IAsyncEnumerable<T> GetAllFully();
-        public  Task<T> GetFirstOrDefaultFully(int id);
+        public IEnumerable<T> GetAllFully();
+        public  T GetFirstOrDefaultFully(int id);
     }
 }

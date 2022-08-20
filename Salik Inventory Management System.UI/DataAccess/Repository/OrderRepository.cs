@@ -17,7 +17,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
-        public IAsyncEnumerable<OrderModel> GetAllFully()
+        public IEnumerable<OrderModel> GetAllFully()
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
@@ -26,7 +26,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
                     .Include(f=>f.Invoices)
                     .Include(c=>c.customerModel)
                     .AsNoTracking()
-                    .AsAsyncEnumerable();
+                    .AsEnumerable();
                     
                    
 
@@ -34,16 +34,16 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
             }
         }
 
-        public async Task<OrderModel> GetFirstOrDefaultFully(int id)
+        public OrderModel GetFirstOrDefaultFully(int id)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var firstordefault =await context.Orders
+                var firstordefault = context.Orders
                     .Include(f => f.orderedItems)
                     .Include(f => f.Invoices)
                     .Include(c => c.customerModel)
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(d=>d.Id==id);
+                    .FirstOrDefault(d=>d.Id==id);
 
 
 
@@ -51,7 +51,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
             }
         }
 
-        public async Task<IAsyncEnumerable<OrderModel>> getAllOrdersByIdOfCustomer(int id)
+        public IEnumerable<OrderModel> getAllOrdersByIdOfCustomer(int id)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
@@ -60,7 +60,7 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
                     .Include(f => f.Invoices)
                     .Include(c => c.customerModel)
                     .AsNoTracking()
-                    .Where(d=>d.CustomerModelId==id).AsAsyncEnumerable();
+                    .Where(d=>d.CustomerModelId==id).AsEnumerable();
 
 
 

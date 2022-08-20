@@ -3,6 +3,7 @@ using Salik_Inventory_Management_System.UI.Services;
 using Salik_Inventory_Management_System.UI.Views.view_Interfaces;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         private ItemService service;
         private BindingSource PacketBindingSource;
         private IEnumerable<ItemModel> ItemList;
-        public  PacketPresenter(IPacketView view)
+        private  PacketPresenter(IPacketView view)
         {
             this.view = view;
             this.service = new ItemService();
@@ -24,51 +25,106 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             this.view.saveNewlyaddedEvent += addnewpacket;
             this.view.editEvent += LoadSelectedItemToEdit;
             this.view.saveEditedEvent +=  saveEditedItem;
-            this.view.deleteEvent += DeleteItemAsync;
-            this.view.RefreshGrid += LoadAllPacketsAsync;
+            this.view.deleteEvent += DeleteItem;
+            this.view.RefreshGrid += LoadAllPackets;
+            this.view.UpdateQuantity += updateSelectedItemsQuantity;
             this.view.setPacketBindingSource(PacketBindingSource);
             this.view.cleanNewFormsBoxes += cleanAddNewFields;
+            this.view.sortByPrice += sortByPrice;
+            this.view.sortByQuantity += sortByQuantity;
 
-             LoadAllPacketsAsync();
+            LoadAllPackets();
             this.view.Show();
         }
+        private static PacketPresenter instance;
+        public static PacketPresenter GetInstace(IPacketView view)
+        {
+            if (instance == null )
+            {
+                instance = new PacketPresenter(view);
+                return instance;
+            }
+            else
+            {
+                return instance;
+            }
+          
+        }
 
-        private async void DeleteItemAsync(object? sender, EventArgs e)
+        private void sortByPrice(object? sender, EventArgs e)
         {
             try
             {
-              //  Thread.Sleep(3434224);
+               
+                    view.IsSuccessful = true;
+                var result = service.GetAllSortedByPrice();
+                    
+
+                    ItemList = result.ToList();
+
+               
+
+
+                PacketBindingSource.DataSource = ItemList;
+            }
+            catch (Exception ex)
+            {
+                view.Message = ex.Message + " " + ex.StackTrace;
+                view.IsSuccessful = false;
+            }
+        }
+
+        private void sortByQuantity(object? sender, EventArgs e)
+        {
+            try
+            {
+
+                view.IsSuccessful = true;
+                var result = service.GetAllSortedByQuantity();
+
+
+                ItemList = result.ToList();
+
+
+
+
+                PacketBindingSource.DataSource = ItemList;
+            }
+            catch (Exception ex)
+            {
+                view.Message = ex.Message + " " + ex.StackTrace;
+                view.IsSuccessful = false;
+            }
+        }
+
+        private  void DeleteItem(object? sender, EventArgs e)
+        {
+            try
+            {
+                
                 ItemModel itemToDelete = (ItemModel)PacketBindingSource.Current;
-               var fully= await service.GetFirstOrDefaultFully(itemToDelete.Id);
+               var fully=  service.GetFirstOrDefaultFully(itemToDelete.Id);
          
                 if (fully.ItemOrderedList.Count ==0)
                 {
-                    view.Message = "به سه ركه وتوى ره شكراوه";
-                    var d= await service.Delete(fully);
+                    var d=  service.Delete(fully);
                     if (d)
                     {
                         view.Message = "به سه ركه وتوى ره شكراوه";
                         view.IsSuccessful = true;
-                        MessageBox.Show(view.Message);
-                    }
-                   //await LoadAllPacketsAsync();
-                    
 
+                    }
                 }
                 else
                 {
                     view.IsSuccessful = false;
                     view.Message = "ناتوانريت ره شبكريته وه";
-                    MessageBox.Show(view.Message);
-
                 }
             }
             catch(Exception ex)
             {
                 view.IsSuccessful = false;
                 view.Message = "سه ر كه وتوو نه بوو";
-                MessageBox.Show(view.Message);
-
             }
         }
 
@@ -82,7 +138,33 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             view.Descriptionedit = itemToEdit.Description;
         }
 
-        private async void saveEditedItem(object? sender, EventArgs e)
+        private void updateSelectedItemsQuantity(object?sender,EventArgs e)
+        {
+            
+            ItemModel itemToEdit = (ItemModel)PacketBindingSource.Current;
+            try
+            {
+                itemToEdit.ItemQuantity = itemToEdit.ItemQuantity+ double.Parse(view.updateQuantityPrompt);
+                try
+                {
+                    
+                    service.Update(itemToEdit);
+                    view.IsSuccessful = true;
+                    view.Message = $"{itemToEdit.ItemName} زماره ى نوى زيادكرا بو كارتونى ";
+                }
+                catch(Exception ex)
+                {
+                    view.IsSuccessful = false;
+                    view.Message =" سه ركه وتوو نه بوو" +" "+ex.Message;
+                }
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = " هه له له زماره ى داخل كراو هه يه" + " " + ex.Message; 
+            }
+        }
+        private  void saveEditedItem(object? sender, EventArgs e)
         {
             try
             {
@@ -99,12 +181,15 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 {
 
 
+
+
+
                     view.IsSuccessful = true;
                     view.Message = "به سه ركه وتوى ده ست كارى كرا";
                   
-                    await service.Update(ItemToUpdate);
-
-                    //await LoadAllPacketsAsync();
+                     service.Update(ItemToUpdate);
+                  
+                    //await LoadAllPackets();
 
                    
                     //cleanAddNewFields();
@@ -114,12 +199,14 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 {
                     view.IsSuccessful = false;
                     view.Message = "سه ر كه وتوو نه بوو" + " " + ex.Message + " " + ex.StackTrace;
+                    //MessageBox.Show(view.Message);
                 }
             }
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
                 view.Message = "زانياريه كان به هه له بركراو نه ته وه";
+                //MessageBox.Show(view.Message);
             }
         }
 
@@ -129,9 +216,9 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         
 
         //event EventHandler UpdateQuantity;
-        private async void addnewpacket(object? sender, EventArgs e)
+        private  void addnewpacket(object? sender, EventArgs e)
         {
-
+          //  Thread.Sleep(344224324);
 
             try
             {
@@ -145,16 +232,28 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
                 try
                 {
+                    if(ItemToAdd.ItemName!=null && ItemToAdd.ItemName != "")
+                    {
+                        if(ItemToAdd.ItemPrice !=0 && ItemToAdd.ItemQuantity != 0)
+                        {
+                            view.IsSuccessful = true;
+                            view.Message = "به سه ركه وتوى زياد كرا";
+                            service.Add(ItemToAdd);
+                        }
+                        else
+                        {
+                            view.IsSuccessful = false;
 
+                            view.Message = "نرخ و زماره نابى سفر بن";
+                        }
+                    }
+                    else
+                    {
+                        view.IsSuccessful = false;
+                        view.Message = "ناوى كالأ نابيت به تال بيت";
+                    }
 
-                    view.IsSuccessful = true;
-                    view.Message = "به سه ركه وتوى زياد كرا";
-                    await service.Add(ItemToAdd);
-
-
-                    //LoadAllPacketsAsync();
-                    ////cleanAddNewFields();
-
+                
                 }
                 catch (Exception ex)
                 {
@@ -180,21 +279,21 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
         }
    
-        private async void LoadAllPacketsAsync(object? sender, EventArgs e)
+        private  void LoadAllPackets(object? sender, EventArgs e)
         {
             
-            var result =await service.GetAll();
+            var result = service.GetAll();
             ItemList = result.ToList();
             PacketBindingSource.DataSource=ItemList;
         }
-         private async void LoadAllPacketsAsync()
+         private  void LoadAllPackets()
         {
 
-            var result = await  service.GetAll();
+            var result = service.GetAll();
             ItemList = result.ToList();
             PacketBindingSource.DataSource = ItemList;
         }
-        private async void searchItem(object? sender, EventArgs e)
+        private  void searchItem(object? sender, EventArgs e)
         {
             bool emptyValue = string.IsNullOrEmpty(this.view.searchValue);
 
@@ -203,16 +302,27 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 if (emptyValue == false)
                 {
                     view.IsSuccessful = true;
-                    var result = await service.SearchByName(this.view.searchValue);
-                    var df = (IEnumerable<ItemModel>)result;
+                    var result =  service.SearchByName(this.view.searchValue);
+                    var df = result;
                     
                     ItemList = df.ToList();
-                   
+
+                    if (view.byprie == true)
+                    {
+                        ItemList=ItemList.OrderByDescending(d => d.ItemPrice);
+                    }
+
+                    if(view.byquantity == true)
+                    {
+                        ItemList= ItemList.OrderByDescending(d => d.ItemQuantity);
+
+                    }
+
                 }
                 else
                 {
                     view.IsSuccessful = true;
-                    ItemList = await service.GetAll();
+                    ItemList =  service.GetAll();
                    
                 }
                 

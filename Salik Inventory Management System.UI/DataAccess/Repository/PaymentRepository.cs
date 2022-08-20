@@ -17,21 +17,21 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
-        public IAsyncEnumerable<Payment> GetAllFully()
+        public IEnumerable<Payment> GetAllFully()
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var fullListwithAttributtes = context.Payments.Include(d => d.Customer).AsNoTracking().AsAsyncEnumerable();
+                var fullListwithAttributtes = context.Payments.Include(d => d.Customer).AsNoTracking().AsEnumerable();
 
                  return fullListwithAttributtes;
             }
         }
 
-        public async Task<Payment> GetFirstOrDefaultFully(int id)
+        public Payment GetFirstOrDefaultFully(int id)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var firstordefault = await context.Payments.Include(d => d.Customer).AsNoTracking().FirstOrDefaultAsync(d => d.Id == id);
+                var firstordefault =  context.Payments.Include(d => d.Customer).AsNoTracking().FirstOrDefault(d => d.Id == id);
 
                 return firstordefault;
             }

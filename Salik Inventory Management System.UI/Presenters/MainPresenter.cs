@@ -11,7 +11,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
     public class MainPresenter
     {
         private IMainView mainView;
-
+        
         public MainPresenter(IMainView mainView)
         {
             this.mainView = mainView;
@@ -21,7 +21,10 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         public void ShowPacketNav(object sender, EventArgs e)
         {
             IPacketView packetView = PacketView.GetInstace((MainView)mainView);
-            new PacketPresenter(packetView);
+            //will cause duplicate presenter if we declare a new presenter everytime
+            //PacketPresenter presenter =  new PacketPresenter(packetView);
+            PacketPresenter presenter = PacketPresenter.GetInstace(packetView);
+
         }
     }
 }

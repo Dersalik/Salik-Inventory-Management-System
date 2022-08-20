@@ -17,45 +17,45 @@ namespace Salik_Inventory_Management_System.UI.Services
             repository = new OrderRepository();
         }
         
-        public IAsyncEnumerable<OrderModel> GetAllFully()
+        public IEnumerable<OrderModel> GetAllFully()
         {
             return repository.GetAllFully();
         }
 
-        public async Task<OrderModel> GetFirstOrDefaultFully(int id)
+        public OrderModel GetFirstOrDefaultFully(int id)
         {
-            return await repository.GetFirstOrDefaultFully(id);
+            return  repository.GetFirstOrDefaultFully(id);
         }
 
 
-        public async Task<bool> Add(OrderModel entity)
+        public bool Add(OrderModel entity)
         {
-            return await repository.Add(entity);
+            return  repository.Add(entity);
         }
 
-        public async Task<bool> Delete(OrderModel entity)
+        public bool Delete(OrderModel entity)
         {
-            return await repository.Delete(entity);
+            return  repository.Delete(entity);
         }
 
-        public async Task<IEnumerable<OrderModel>> GetAll()
+        public IEnumerable<OrderModel> GetAll()
         {
-            return await repository.GetAll();
+            return  repository.GetAll();
         }
 
-        public async Task<OrderModel> GetFirstOrDefault(Expression<Func<OrderModel, bool>> filter)
+        public OrderModel GetFirstOrDefault(Expression<Func<OrderModel, bool>> filter)
         {
-            return await repository.GetFirstOrDefault(filter);
+            return  repository.GetFirstOrDefault(filter);
         }
 
-        public async Task<bool> RemoveRange(IEnumerable<OrderModel> entity)
+        public bool RemoveRange(IEnumerable<OrderModel> entity)
         {
-            return await repository.RemoveRange(entity);
+            return  repository.RemoveRange(entity);
         }
 
-        public async Task<OrderModel> Update(OrderModel entity)
+        public OrderModel Update(OrderModel entity)
         {
-            return await repository.Update(entity);
+            return  repository.Update(entity);
         }
     }
 }

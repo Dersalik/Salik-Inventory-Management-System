@@ -9,12 +9,12 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {
-        public Task<bool> Add(T entity);
-        public Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter);
-        public Task<IEnumerable<T>> GetAll();
-        public Task<bool> RemoveRange(IEnumerable<T> entity);
-        public Task<T> Update(T entity);
-        public Task<bool> Delete(T entity);
+        public bool Add(T entity);
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter);
+        public IEnumerable<T> GetAll();
+        public bool RemoveRange(IEnumerable<T> entity);
+        public T Update(T entity);
+        public bool Delete(T entity);
 
 
     }

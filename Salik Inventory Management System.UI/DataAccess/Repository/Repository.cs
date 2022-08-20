@@ -26,60 +26,61 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
             this.@object = @object;
         }
 
-        public async Task<bool> Add(T entity)
+        public bool Add(T entity)
         {
            using(InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                await context.Set<T>().AddAsync(entity);
-                await context.SaveChangesAsync();
+                
+                 context.Set<T>().Add(entity);
+                 context.SaveChanges();
                 return true;
             }
         }
 
-        public async Task<bool> Delete(T entity)
+        public bool Delete(T entity)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
                  context.Set<T>().Remove(entity);
-                await context.SaveChangesAsync();
+                 context.SaveChanges();
                 return true;
             }
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public IEnumerable<T> GetAll()
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var listtoReturn=await context.Set<T>().AsNoTracking().ToListAsync();
+                var listtoReturn= context.Set<T>().AsNoTracking().ToList();
                 return listtoReturn;
             }
         }
 
-        public async Task<T> GetFirstOrDefault(Expression<Func<T, bool>> filter)
+        public T GetFirstOrDefault(Expression<Func<T, bool>> filter)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
-                var firstOrDefaultTarget= await context.Set<T>().AsNoTracking().FirstOrDefaultAsync(filter);
+                var firstOrDefaultTarget=  context.Set<T>().AsNoTracking().FirstOrDefault(filter);
                 return firstOrDefaultTarget;
             }
         }
 
-        public async Task<bool> RemoveRange(IEnumerable<T> entity)
+        public bool RemoveRange(IEnumerable<T> entity)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
                context.Set<T>().RemoveRange(entity);
-                await context.SaveChangesAsync();
+               context.SaveChanges();
                 return true;
             }
         }
 
-        public async Task<T> Update(T entity)
+        public T Update(T entity)
         {
             using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
             {
                context.Set<T>().Update(entity);
-                await context.SaveChangesAsync();
+                context.SaveChanges();
                 return entity;
             }
         }

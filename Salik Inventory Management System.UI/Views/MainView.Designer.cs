@@ -99,6 +99,7 @@
             this.PacketNav.TabIndex = 6;
             this.PacketNav.Text = "باكه ته كان";
             this.PacketNav.UseVisualStyleBackColor = true;
+            this.PacketNav.Click += new System.EventHandler(this.PacketNav_Click);
             // 
             // CustomerNav
             // 

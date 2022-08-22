@@ -35,6 +35,7 @@
             this.itemModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.PacketTab = new System.Windows.Forms.TabControl();
             this.PacketHomeTab = new System.Windows.Forms.TabPage();
+            this.NoSortRadioBtn = new System.Windows.Forms.RadioButton();
             this.sortByQuantityRadioBtn = new System.Windows.Forms.RadioButton();
             this.sortByPriceRadiotBtn = new System.Windows.Forms.RadioButton();
             this.addingQuantityBtn = new System.Windows.Forms.Button();
@@ -73,7 +74,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.NoSortRadioBtn = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.itemModelBindingSource)).BeginInit();
             this.PacketTab.SuspendLayout();
             this.PacketHomeTab.SuspendLayout();
@@ -118,6 +118,20 @@
             this.PacketHomeTab.Text = "ليستى باكه ته كان";
             this.PacketHomeTab.UseVisualStyleBackColor = true;
             this.PacketHomeTab.Click += new System.EventHandler(this.PacketHomeTab_Click);
+            // 
+            // NoSortRadioBtn
+            // 
+            this.NoSortRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.NoSortRadioBtn.AutoSize = true;
+            this.NoSortRadioBtn.Checked = true;
+            this.NoSortRadioBtn.Location = new System.Drawing.Point(388, 210);
+            this.NoSortRadioBtn.Name = "NoSortRadioBtn";
+            this.NoSortRadioBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.NoSortRadioBtn.Size = new System.Drawing.Size(89, 24);
+            this.NoSortRadioBtn.TabIndex = 14;
+            this.NoSortRadioBtn.TabStop = true;
+            this.NoSortRadioBtn.Text = "ريزنه كراو";
+            this.NoSortRadioBtn.UseVisualStyleBackColor = true;
             // 
             // sortByQuantityRadioBtn
             // 
@@ -397,6 +411,7 @@
             this.editquantity.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.editquantity.Location = new System.Drawing.Point(250, 166);
             this.editquantity.Name = "editquantity";
+            this.editquantity.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.editquantity.Size = new System.Drawing.Size(239, 32);
             this.editquantity.TabIndex = 16;
             // 
@@ -406,6 +421,7 @@
             this.editPrice.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.editPrice.Location = new System.Drawing.Point(250, 126);
             this.editPrice.Name = "editPrice";
+            this.editPrice.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.editPrice.Size = new System.Drawing.Size(239, 32);
             this.editPrice.TabIndex = 15;
             // 
@@ -528,6 +544,7 @@
             this.quantitytxt.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.quantitytxt.Location = new System.Drawing.Point(229, 133);
             this.quantitytxt.Name = "quantitytxt";
+            this.quantitytxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.quantitytxt.Size = new System.Drawing.Size(239, 32);
             this.quantitytxt.TabIndex = 6;
             // 
@@ -537,6 +554,7 @@
             this.pricetxt.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.pricetxt.Location = new System.Drawing.Point(229, 90);
             this.pricetxt.Name = "pricetxt";
+            this.pricetxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.pricetxt.Size = new System.Drawing.Size(239, 32);
             this.pricetxt.TabIndex = 5;
             // 
@@ -593,20 +611,6 @@
             this.label1.Size = new System.Drawing.Size(110, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "ناوى با كه ت";
-            // 
-            // NoSortRadioBtn
-            // 
-            this.NoSortRadioBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NoSortRadioBtn.AutoSize = true;
-            this.NoSortRadioBtn.Checked = true;
-            this.NoSortRadioBtn.Location = new System.Drawing.Point(388, 210);
-            this.NoSortRadioBtn.Name = "NoSortRadioBtn";
-            this.NoSortRadioBtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.NoSortRadioBtn.Size = new System.Drawing.Size(89, 24);
-            this.NoSortRadioBtn.TabIndex = 14;
-            this.NoSortRadioBtn.TabStop = true;
-            this.NoSortRadioBtn.Text = "ريزنه كراو";
-            this.NoSortRadioBtn.UseVisualStyleBackColor = true;
             // 
             // PacketView
             // 

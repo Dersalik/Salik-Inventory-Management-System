@@ -17,6 +17,7 @@ namespace Salik_Inventory_Management_System.UI.Views
         {
             InitializeComponent();
             PacketNav.Click += delegate { ShowPacketNav?.Invoke(this, EventArgs.Empty); };
+            CustomerNav.Click+=delegate { ShowCustomerNav?.Invoke(this, EventArgs.Empty); };
         }
 
         public event EventHandler ShowHome;

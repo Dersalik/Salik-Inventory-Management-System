@@ -59,23 +59,31 @@ namespace Salik_Inventory_Management_System.UI.Views
                 }
                 else
                 {
-                    if(sortByQuantityRadioBtn.Checked == true)
+                    if (string.IsNullOrEmpty(searchtxt.Text))
                     {
-                        sortByQuantity?.Invoke(this, EventArgs.Empty);
+                        if (sortByQuantityRadioBtn.Checked == true)
+                        {
+                            sortByQuantity?.Invoke(this, EventArgs.Empty);
 
+                        }
+
+                        if (sortByPriceRadiotBtn.Checked == true)
+                        {
+                            sortByPrice?.Invoke(this, EventArgs.Empty);
+
+                        }
+
+                        if (NoSortRadioBtn.Checked == true)
+                        {
+                            RefreshGrid?.Invoke(this, EventArgs.Empty);
+
+                        }
+                    }
+                    else
+                    {
+                        SearchEvent?.Invoke(this, EventArgs.Empty);
                     }
 
-                    if (sortByPriceRadiotBtn.Checked == true)
-                    {
-                        sortByPrice?.Invoke(this, EventArgs.Empty);
-
-                    }
-
-                    if(NoSortRadioBtn.Checked == true)
-                    {
-                        RefreshGrid?.Invoke(this, EventArgs.Empty);
-
-                    }
                     addingQuantityBtn.Enabled = true;
                     MessageBox.Show(Message);
                 }
@@ -90,9 +98,44 @@ namespace Salik_Inventory_Management_System.UI.Views
             editBackgroundWorker.RunWorkerCompleted += delegate
             {
 
-                RefreshGrid?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show(Message);
-                saveBtn.Enabled = true;
+
+                if (IsSuccessful == false)
+                {
+                    saveBtn.Enabled = true;
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(searchtxt.Text))
+                    {
+                        if (sortByQuantityRadioBtn.Checked == true)
+                        {
+                            sortByQuantity?.Invoke(this, EventArgs.Empty);
+
+                        }
+
+                        if (sortByPriceRadiotBtn.Checked == true)
+                        {
+                            sortByPrice?.Invoke(this, EventArgs.Empty);
+
+                        }
+
+                        if (NoSortRadioBtn.Checked == true)
+                        {
+                            RefreshGrid?.Invoke(this, EventArgs.Empty);
+
+                        }
+                    }
+                    else
+                    {
+                        SearchEvent?.Invoke(this, EventArgs.Empty);
+                    }
+
+
+                    MessageBox.Show(Message);
+                    saveBtn.Enabled = true;
+                }
+
 
             };
 
@@ -104,10 +147,41 @@ namespace Salik_Inventory_Management_System.UI.Views
 
             deleteBackgroundWorker.RunWorkerCompleted += delegate
             {
+                if (IsSuccessful == false)
+                {
+                    deletebtn.Enabled = true;
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(searchtxt.Text))
+                    {
+                        if (sortByQuantityRadioBtn.Checked == true)
+                        {
+                            sortByQuantity?.Invoke(this, EventArgs.Empty);
 
-                RefreshGrid?.Invoke(this, EventArgs.Empty);
-                MessageBox.Show(Message);
-                deletebtn.Enabled = true;
+                        }
+
+                        if (sortByPriceRadiotBtn.Checked == true)
+                        {
+                            sortByPrice?.Invoke(this, EventArgs.Empty);
+
+                        }
+
+                        if (NoSortRadioBtn.Checked == true)
+                        {
+                            RefreshGrid?.Invoke(this, EventArgs.Empty);
+
+                        }
+                    }
+                    else
+                    {
+                        SearchEvent?.Invoke(this, EventArgs.Empty);
+                    }
+
+                    MessageBox.Show(Message);
+                    deletebtn.Enabled = true;
+                }
 
             };
 
@@ -119,21 +193,50 @@ namespace Salik_Inventory_Management_System.UI.Views
 
             addBackgroundWorker.RunWorkerCompleted += delegate
             {
-
-                if (isSuccessful == false)
+                if (IsSuccessful == false)
                 {
-                    MessageBox.Show(Message);
+                    addnewpacketbtn.Enabled = true;
+                    returnbtnNew.Enabled = true;
+                    MessageBox.Show(message);
                 }
                 else
                 {
-                    RefreshGrid?.Invoke(this, EventArgs.Empty);
+                    if (string.IsNullOrEmpty(searchtxt.Text))
+                    {
+                        if (sortByQuantityRadioBtn.Checked == true)
+                        {
+                            sortByQuantity?.Invoke(this, EventArgs.Empty);
+
+                        }
+
+                        if (sortByPriceRadiotBtn.Checked == true)
+                        {
+                            sortByPrice?.Invoke(this, EventArgs.Empty);
+
+                        }
+
+                        if (NoSortRadioBtn.Checked == true)
+                        {
+                            RefreshGrid?.Invoke(this, EventArgs.Empty);
+
+                        }
+                    }
+                    else
+                    {
+                        SearchEvent?.Invoke(this, EventArgs.Empty);
+                    }
+
+                    MessageBox.Show(Message);
+                    addnewpacketbtn.Enabled = true;
+                    returnbtnNew.Enabled = true;
                     PacketTab.TabPages.Remove(addingPacketTab);
                     PacketTab.TabPages.Add(PacketHomeTab);
                     cleanNewFormsBoxes.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
                 }
-                addnewpacketbtn.Enabled = true;
-                returnbtnNew.Enabled = true;
+
+
+
+
 
             };
 
@@ -148,6 +251,7 @@ namespace Salik_Inventory_Management_System.UI.Views
 
             sortByPriceRadiotBtn.Click += delegate
             {
+
                 if (string.IsNullOrEmpty(searchtxt.Text))
                 {
                     if (sortByPriceRadiotBtn.Checked != false)
@@ -158,6 +262,7 @@ namespace Salik_Inventory_Management_System.UI.Views
 
                 }
 
+                searchbtn.Enabled = true;
 
             };
 
@@ -171,7 +276,8 @@ namespace Salik_Inventory_Management_System.UI.Views
                     }
                    
                 }
-               
+                searchbtn.Enabled = true;
+
             };
 
             NoSortRadioBtn.Click += delegate
@@ -181,6 +287,7 @@ namespace Salik_Inventory_Management_System.UI.Views
                     RefreshGrid?.Invoke(this, EventArgs.Empty);
 
                 }
+                searchbtn.Enabled = true;
 
             };
             searchbtn.Enabled = false;

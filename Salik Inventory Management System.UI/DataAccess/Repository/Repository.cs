@@ -14,17 +14,12 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
     {
 
         private readonly SalikInventoryManagementDbContextFactory _dbContextfactory;
-        private DbContext @object;
 
         public Repository()
         {
             _dbContextfactory = Program.GetService<SalikInventoryManagementDbContextFactory>();
         }
 
-        public Repository(DbContext @object)
-        {
-            this.@object = @object;
-        }
 
         public bool Add(T entity)
         {

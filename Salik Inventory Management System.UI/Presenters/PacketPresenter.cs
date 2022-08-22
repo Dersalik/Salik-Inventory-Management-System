@@ -59,11 +59,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                     view.IsSuccessful = true;
                 var result = service.GetAllSortedByPrice();
                     
-
                     ItemList = result.ToList();
-
-               
-
 
                 PacketBindingSource.DataSource = ItemList;
             }
@@ -82,11 +78,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 view.IsSuccessful = true;
                 var result = service.GetAllSortedByQuantity();
 
-
                 ItemList = result.ToList();
-
-
-
 
                 PacketBindingSource.DataSource = ItemList;
             }
@@ -97,7 +89,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             }
         }
 
-        private  void DeleteItem(object? sender, EventArgs e)
+        private void DeleteItem(object? sender, EventArgs e)
         {
             try
             {
@@ -169,7 +161,6 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             try
             {
                 
-
                 ItemModel ItemToUpdate = new ItemModel();
                 ItemToUpdate.Id=Convert.ToInt32(view.IdEdit);
                 ItemToUpdate.ItemName = this.view.ItemNameedit;
@@ -179,21 +170,11 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
                 try
                 {
-
-
-
-
-
                     view.IsSuccessful = true;
                     view.Message = "به سه ركه وتوى ده ست كارى كرا";
                   
                      service.Update(ItemToUpdate);
-                  
-                    //await LoadAllPackets();
-
-                   
-                    //cleanAddNewFields();
-
+                 
                 }
                 catch (Exception ex)
                 {
@@ -205,31 +186,21 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = "زانياريه كان به هه له بركراو نه ته وه";
-                //MessageBox.Show(view.Message);
-            }
+                view.Message = "زانياريه كان به هه له بركراو نه ته وه";            }
         }
 
     
 
-
-        
-
         //event EventHandler UpdateQuantity;
         private  void addnewpacket(object? sender, EventArgs e)
         {
-          //  Thread.Sleep(344224324);
-
             try
             {
-           
-
                 ItemModel ItemToAdd = new ItemModel();
                 ItemToAdd.ItemName = this.view.ItemName;
                 ItemToAdd.Description = this.view.Description;
                 ItemToAdd.ItemPrice = Decimal.Parse(this.view.ItemPrice);
                 ItemToAdd.ItemQuantity = double.Parse(this.view.ItemQuantity);
-
                 try
                 {
                     if(ItemToAdd.ItemName!=null && ItemToAdd.ItemName != "")
@@ -252,8 +223,6 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                         view.IsSuccessful = false;
                         view.Message = "ناوى كالأ نابيت به تال بيت";
                     }
-
-                
                 }
                 catch (Exception ex)
                 {
@@ -276,7 +245,6 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             view.ItemPrice = "";
             view.Description = "";
 
-
         }
    
         private  void LoadAllPackets(object? sender, EventArgs e)
@@ -296,7 +264,6 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         private  void searchItem(object? sender, EventArgs e)
         {
             bool emptyValue = string.IsNullOrEmpty(this.view.searchValue);
-
             try
             {
                 if (emptyValue == false)
@@ -326,7 +293,6 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                    
                 }
                 
-
                 PacketBindingSource.DataSource = ItemList;
             }
             catch(Exception ex)

@@ -96,24 +96,25 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 
                 ItemModel itemToDelete = (ItemModel)PacketBindingSource.Current;
                var fully=  service.GetFirstOrDefaultFully(itemToDelete.Id);
-         
-                if (fully.ItemOrderedList.Count ==0)
+                if (fully != null)
                 {
-                    var d=  service.Delete(fully);
-                    if (d)
+                    if (fully.ItemOrderedList.Count == 0)
                     {
+                        var d = service.Delete(fully);
+
                         view.Message = "به سه ركه وتوى ره شكراوه";
                         view.IsSuccessful = true;
 
                     }
+                    else
+                    {
+                        view.IsSuccessful = false;
+                        view.Message = "ناتوانريت ره شبكريته وه";
+                    }
                 }
-                else
-                {
-                    view.IsSuccessful = false;
-                    view.Message = "ناتوانريت ره شبكريته وه";
-                }
+             
             }
-            catch(Exception ex)
+           catch(Exception ex)
             {
                 view.IsSuccessful = false;
                 view.Message = "سه ر كه وتوو نه بوو";
@@ -186,7 +187,8 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = "زانياريه كان به هه له بركراو نه ته وه";            }
+                view.Message = "زانياريه كان به هه له بركراو نه ته وه";          
+            }
         }
 
     
@@ -203,7 +205,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 ItemToAdd.ItemQuantity = double.Parse(this.view.ItemQuantity);
                 try
                 {
-                    if(ItemToAdd.ItemName!=null && ItemToAdd.ItemName != "")
+                    if(!string.IsNullOrEmpty(ItemToAdd.ItemName))
                     {
                         if(ItemToAdd.ItemPrice !=0 && ItemToAdd.ItemQuantity != 0)
                         {
@@ -270,18 +272,18 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 {
                     view.IsSuccessful = true;
                     var result =  service.SearchByName(this.view.searchValue);
-                    var df = result;
+                    var df = result.ToList();
                     
                     ItemList = df.ToList();
 
                     if (view.byprie == true)
                     {
-                        ItemList=ItemList.OrderByDescending(d => d.ItemPrice);
+                        ItemList=ItemList.OrderByDescending(d => d.ItemPrice).ToList();
                     }
 
                     if(view.byquantity == true)
                     {
-                        ItemList= ItemList.OrderByDescending(d => d.ItemQuantity);
+                        ItemList= ItemList.OrderByDescending(d => d.ItemQuantity).ToList();
 
                     }
 

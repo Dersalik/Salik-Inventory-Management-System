@@ -1,5 +1,6 @@
 ﻿
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +14,7 @@ namespace Salik_Inventory_Management_System.UI.Models
         public List<Payment>? payments { get; set; }
         public List<OrderModel>? Orders { get; set; }
         [Column(TypeName = "decimal(18,4)")]
-        public decimal? TotalMoneyOwed { get; set; }
+        public decimal? TotalMoneyOwed { get; set; } = decimal.Zero;
         public string? Description { get; set; }
     }
 }

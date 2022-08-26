@@ -59,7 +59,10 @@ namespace Salik_Inventory_Management_System.UI.DataAccess
                 .HasMany(d => d.Invoices)
                 .WithOne(d => d.order)
                 .OnDelete(DeleteBehavior.Cascade);
-             
+
+            modelBuilder.Entity<CustomerModel>()
+                .Property(d => d.TotalMoneyOwed)
+                .HasDefaultValue(decimal.Zero);
 
             base.OnModelCreating(modelBuilder);
         }

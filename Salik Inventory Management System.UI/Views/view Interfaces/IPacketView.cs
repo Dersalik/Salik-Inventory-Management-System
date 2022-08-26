@@ -39,7 +39,7 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         event EventHandler saveNewlyaddedEvent;
         event EventHandler UpdateQuantity;
 
-        event  EventHandler RefreshGrid;
+        event EventHandler RefreshGrid;
         event EventHandler cleanNewFormsBoxes;
         event EventHandler sortByPrice;
         event EventHandler sortByQuantity;

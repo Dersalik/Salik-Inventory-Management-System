@@ -46,6 +46,7 @@ namespace Salik_Inventory_Management_System.UI.Views
 
 
             #region backgroundWorkers
+
             updateQuantityBackgroundWorker.DoWork += delegate
             {
                 UpdateQuantity?.Invoke(this, EventArgs.Empty);
@@ -234,10 +235,6 @@ namespace Salik_Inventory_Management_System.UI.Views
                     cleanNewFormsBoxes.Invoke(this, EventArgs.Empty);
                 }
 
-
-
-
-
             };
 
 
@@ -262,7 +259,10 @@ namespace Salik_Inventory_Management_System.UI.Views
 
                 }
 
-                searchbtn.Enabled = true;
+                if (!string.IsNullOrWhiteSpace(searchtxt.Text))
+                {
+                    searchbtn.Enabled = true;
+                }
 
             };
 
@@ -276,20 +276,25 @@ namespace Salik_Inventory_Management_System.UI.Views
                     }
                    
                 }
-                searchbtn.Enabled = true;
-
+                if (!string.IsNullOrWhiteSpace(searchtxt.Text))
+                {
+                    searchbtn.Enabled = true;
+                }
             };
 
             NoSortRadioBtn.Click += delegate
             {
-                if (string.IsNullOrEmpty(searchtxt.Text))
+                if (string.IsNullOrWhiteSpace(searchtxt.Text))
                 {
                     RefreshGrid?.Invoke(this, EventArgs.Empty);
 
                 }
-                searchbtn.Enabled = true;
-
+                if (!string.IsNullOrWhiteSpace(searchtxt.Text))
+                {
+                    searchbtn.Enabled = true;
+                }
             };
+
             searchbtn.Enabled = false;
             searchtxt.TextChanged += delegate
             {
@@ -336,11 +341,7 @@ namespace Salik_Inventory_Management_System.UI.Views
             //save for after editing
             saveBtn.Click +=   delegate
             {
-                //saveEditedEvent?.Invoke(this, EventArgs.Empty);
-                ////await Task.Run(() => saveEditedEvent?.Invoke(this, EventArgs.Empty)).ContinueWith(res => {
-
-                //    RefreshGrid.Invoke(this, EventArgs.Empty);
-                //});
+              
                 saveBtn.Enabled = false;
                
 

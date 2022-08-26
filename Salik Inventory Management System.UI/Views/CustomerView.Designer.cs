@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomerView));
             this.CustomerTab = new System.Windows.Forms.TabControl();
             this.CustomerHomeTab = new System.Windows.Forms.TabPage();
+            this.noSortradiobtn = new System.Windows.Forms.RadioButton();
+            this.sortByMoneyOwedradiobtn = new System.Windows.Forms.RadioButton();
             this.searchbtn = new System.Windows.Forms.Button();
             this.searchtxt = new System.Windows.Forms.TextBox();
             this.deletebtn = new System.Windows.Forms.Button();
@@ -43,19 +45,37 @@
             this.totalMoneyOwedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.customerModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.addCustomerTab = new System.Windows.Forms.TabPage();
+            this.backToHomeFromnewbtn = new System.Windows.Forms.Button();
+            this.addNewCustomerBtn = new System.Windows.Forms.Button();
+            this.customerDescriptiontxt = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.CustomerNametxt = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.editCustomerTab = new System.Windows.Forms.TabPage();
+            this.IdEdittxt = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ReturnToHomeFromEditbtn = new System.Windows.Forms.Button();
+            this.saveEditedBtn = new System.Windows.Forms.Button();
+            this.CustomerDesEdit = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.CustomerNameEdit = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.CustomerTab.SuspendLayout();
             this.CustomerHomeTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerModelBindingSource)).BeginInit();
+            this.addCustomerTab.SuspendLayout();
+            this.editCustomerTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // CustomerTab
             // 
             this.CustomerTab.Controls.Add(this.CustomerHomeTab);
-            this.CustomerTab.Controls.Add(this.tabPage2);
+            this.CustomerTab.Controls.Add(this.addCustomerTab);
+            this.CustomerTab.Controls.Add(this.editCustomerTab);
             this.CustomerTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CustomerTab.Location = new System.Drawing.Point(0, 0);
             this.CustomerTab.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -66,6 +86,8 @@
             // 
             // CustomerHomeTab
             // 
+            this.CustomerHomeTab.Controls.Add(this.noSortradiobtn);
+            this.CustomerHomeTab.Controls.Add(this.sortByMoneyOwedradiobtn);
             this.CustomerHomeTab.Controls.Add(this.searchbtn);
             this.CustomerHomeTab.Controls.Add(this.searchtxt);
             this.CustomerHomeTab.Controls.Add(this.deletebtn);
@@ -82,11 +104,39 @@
             this.CustomerHomeTab.Text = "كرياره كان";
             this.CustomerHomeTab.UseVisualStyleBackColor = true;
             // 
+            // noSortradiobtn
+            // 
+            this.noSortradiobtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.noSortradiobtn.AutoSize = true;
+            this.noSortradiobtn.Checked = true;
+            this.noSortradiobtn.Location = new System.Drawing.Point(541, 155);
+            this.noSortradiobtn.Name = "noSortradiobtn";
+            this.noSortradiobtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.noSortradiobtn.Size = new System.Drawing.Size(111, 29);
+            this.noSortradiobtn.TabIndex = 19;
+            this.noSortradiobtn.TabStop = true;
+            this.noSortradiobtn.Text = "ريز نه كراو";
+            this.noSortradiobtn.UseVisualStyleBackColor = true;
+            this.noSortradiobtn.CheckedChanged += new System.EventHandler(this.noSortradiobtn_CheckedChanged);
+            // 
+            // sortByMoneyOwedradiobtn
+            // 
+            this.sortByMoneyOwedradiobtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.sortByMoneyOwedradiobtn.AutoSize = true;
+            this.sortByMoneyOwedradiobtn.Location = new System.Drawing.Point(658, 155);
+            this.sortByMoneyOwedradiobtn.Name = "sortByMoneyOwedradiobtn";
+            this.sortByMoneyOwedradiobtn.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.sortByMoneyOwedradiobtn.Size = new System.Drawing.Size(185, 29);
+            this.sortByMoneyOwedradiobtn.TabIndex = 18;
+            this.sortByMoneyOwedradiobtn.Text = "ريزكردن به بيي قه رز";
+            this.sortByMoneyOwedradiobtn.UseVisualStyleBackColor = true;
+            // 
             // searchbtn
             // 
             this.searchbtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.searchbtn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("searchbtn.BackgroundImage")));
             this.searchbtn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.searchbtn.Enabled = false;
             this.searchbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.searchbtn.Location = new System.Drawing.Point(470, 34);
             this.searchbtn.Name = "searchbtn";
@@ -172,6 +222,7 @@
             this.customerDataGridView.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.customerDataGridView.Location = new System.Drawing.Point(4, 297);
             this.customerDataGridView.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.customerDataGridView.MultiSelect = false;
             this.customerDataGridView.Name = "customerDataGridView";
             this.customerDataGridView.ReadOnly = true;
             this.customerDataGridView.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -216,16 +267,190 @@
             // 
             this.customerModelBindingSource.DataSource = typeof(Salik_Inventory_Management_System.UI.Models.CustomerModel);
             // 
-            // tabPage2
+            // addCustomerTab
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 29);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.tabPage2.Size = new System.Drawing.Size(857, 387);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.addCustomerTab.Controls.Add(this.backToHomeFromnewbtn);
+            this.addCustomerTab.Controls.Add(this.addNewCustomerBtn);
+            this.addCustomerTab.Controls.Add(this.customerDescriptiontxt);
+            this.addCustomerTab.Controls.Add(this.label2);
+            this.addCustomerTab.Controls.Add(this.CustomerNametxt);
+            this.addCustomerTab.Controls.Add(this.label1);
+            this.addCustomerTab.Location = new System.Drawing.Point(4, 29);
+            this.addCustomerTab.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.addCustomerTab.Name = "addCustomerTab";
+            this.addCustomerTab.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.addCustomerTab.Size = new System.Drawing.Size(857, 387);
+            this.addCustomerTab.TabIndex = 1;
+            this.addCustomerTab.Text = "زيادكردنى كريار";
+            this.addCustomerTab.UseVisualStyleBackColor = true;
+            // 
+            // backToHomeFromnewbtn
+            // 
+            this.backToHomeFromnewbtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.backToHomeFromnewbtn.Image = ((System.Drawing.Image)(resources.GetObject("backToHomeFromnewbtn.Image")));
+            this.backToHomeFromnewbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.backToHomeFromnewbtn.Location = new System.Drawing.Point(24, 293);
+            this.backToHomeFromnewbtn.Name = "backToHomeFromnewbtn";
+            this.backToHomeFromnewbtn.Size = new System.Drawing.Size(146, 57);
+            this.backToHomeFromnewbtn.TabIndex = 5;
+            this.backToHomeFromnewbtn.Text = "كه رانه وه";
+            this.backToHomeFromnewbtn.UseVisualStyleBackColor = true;
+            // 
+            // addNewCustomerBtn
+            // 
+            this.addNewCustomerBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.addNewCustomerBtn.Image = ((System.Drawing.Image)(resources.GetObject("addNewCustomerBtn.Image")));
+            this.addNewCustomerBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.addNewCustomerBtn.Location = new System.Drawing.Point(665, 293);
+            this.addNewCustomerBtn.Name = "addNewCustomerBtn";
+            this.addNewCustomerBtn.Size = new System.Drawing.Size(159, 57);
+            this.addNewCustomerBtn.TabIndex = 4;
+            this.addNewCustomerBtn.Text = "زيادكردنى كريار";
+            this.addNewCustomerBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.addNewCustomerBtn.UseVisualStyleBackColor = true;
+            // 
+            // customerDescriptiontxt
+            // 
+            this.customerDescriptiontxt.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.customerDescriptiontxt.Location = new System.Drawing.Point(222, 145);
+            this.customerDescriptiontxt.Multiline = true;
+            this.customerDescriptiontxt.Name = "customerDescriptiontxt";
+            this.customerDescriptiontxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.customerDescriptiontxt.Size = new System.Drawing.Size(355, 85);
+            this.customerDescriptiontxt.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(596, 145);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 20);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "زانيارى كريار";
+            // 
+            // CustomerNametxt
+            // 
+            this.CustomerNametxt.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CustomerNametxt.Location = new System.Drawing.Point(277, 96);
+            this.CustomerNametxt.Name = "CustomerNametxt";
+            this.CustomerNametxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CustomerNametxt.Size = new System.Drawing.Size(300, 27);
+            this.CustomerNametxt.TabIndex = 1;
+            this.CustomerNametxt.TextChanged += new System.EventHandler(this.CustomerNametxt_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(596, 99);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 20);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "ناوى كريار";
+            // 
+            // editCustomerTab
+            // 
+            this.editCustomerTab.Controls.Add(this.IdEdittxt);
+            this.editCustomerTab.Controls.Add(this.label5);
+            this.editCustomerTab.Controls.Add(this.ReturnToHomeFromEditbtn);
+            this.editCustomerTab.Controls.Add(this.saveEditedBtn);
+            this.editCustomerTab.Controls.Add(this.CustomerDesEdit);
+            this.editCustomerTab.Controls.Add(this.label3);
+            this.editCustomerTab.Controls.Add(this.CustomerNameEdit);
+            this.editCustomerTab.Controls.Add(this.label4);
+            this.editCustomerTab.Location = new System.Drawing.Point(4, 29);
+            this.editCustomerTab.Name = "editCustomerTab";
+            this.editCustomerTab.Padding = new System.Windows.Forms.Padding(3);
+            this.editCustomerTab.Size = new System.Drawing.Size(857, 387);
+            this.editCustomerTab.TabIndex = 2;
+            this.editCustomerTab.Text = "ده ستكاريكردنى زانيارى كريار";
+            this.editCustomerTab.UseVisualStyleBackColor = true;
+            this.editCustomerTab.Click += new System.EventHandler(this.editCustomerTab_Click);
+            // 
+            // IdEdittxt
+            // 
+            this.IdEdittxt.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.IdEdittxt.Location = new System.Drawing.Point(456, 19);
+            this.IdEdittxt.Name = "IdEdittxt";
+            this.IdEdittxt.ReadOnly = true;
+            this.IdEdittxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.IdEdittxt.Size = new System.Drawing.Size(125, 27);
+            this.IdEdittxt.TabIndex = 13;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(600, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(24, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "ID";
+            // 
+            // ReturnToHomeFromEditbtn
+            // 
+            this.ReturnToHomeFromEditbtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ReturnToHomeFromEditbtn.Image = ((System.Drawing.Image)(resources.GetObject("ReturnToHomeFromEditbtn.Image")));
+            this.ReturnToHomeFromEditbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ReturnToHomeFromEditbtn.Location = new System.Drawing.Point(28, 263);
+            this.ReturnToHomeFromEditbtn.Name = "ReturnToHomeFromEditbtn";
+            this.ReturnToHomeFromEditbtn.Size = new System.Drawing.Size(146, 57);
+            this.ReturnToHomeFromEditbtn.TabIndex = 11;
+            this.ReturnToHomeFromEditbtn.Text = "كه رانه وه";
+            this.ReturnToHomeFromEditbtn.UseVisualStyleBackColor = true;
+            // 
+            // saveEditedBtn
+            // 
+            this.saveEditedBtn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.saveEditedBtn.Image = ((System.Drawing.Image)(resources.GetObject("saveEditedBtn.Image")));
+            this.saveEditedBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.saveEditedBtn.Location = new System.Drawing.Point(705, 263);
+            this.saveEditedBtn.Name = "saveEditedBtn";
+            this.saveEditedBtn.Size = new System.Drawing.Size(123, 57);
+            this.saveEditedBtn.TabIndex = 10;
+            this.saveEditedBtn.Text = "خه زن كردن";
+            this.saveEditedBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.saveEditedBtn.UseVisualStyleBackColor = true;
+            // 
+            // CustomerDesEdit
+            // 
+            this.CustomerDesEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CustomerDesEdit.Location = new System.Drawing.Point(226, 115);
+            this.CustomerDesEdit.Multiline = true;
+            this.CustomerDesEdit.Name = "CustomerDesEdit";
+            this.CustomerDesEdit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CustomerDesEdit.Size = new System.Drawing.Size(355, 85);
+            this.CustomerDesEdit.TabIndex = 9;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(600, 115);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(82, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "زانيارى كريار";
+            // 
+            // CustomerNameEdit
+            // 
+            this.CustomerNameEdit.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CustomerNameEdit.Location = new System.Drawing.Point(281, 66);
+            this.CustomerNameEdit.Name = "CustomerNameEdit";
+            this.CustomerNameEdit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.CustomerNameEdit.Size = new System.Drawing.Size(300, 27);
+            this.CustomerNameEdit.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(600, 69);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(71, 20);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "ناوى كريار";
             // 
             // bindingSource1
             // 
@@ -246,6 +471,10 @@
             this.CustomerHomeTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerModelBindingSource)).EndInit();
+            this.addCustomerTab.ResumeLayout(false);
+            this.addCustomerTab.PerformLayout();
+            this.editCustomerTab.ResumeLayout(false);
+            this.editCustomerTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
 
@@ -255,7 +484,7 @@
 
         private TabControl CustomerTab;
         private TabPage CustomerHomeTab;
-        private TabPage tabPage2;
+        private TabPage addCustomerTab;
         private BindingSource bindingSource1;
         private DataGridView customerDataGridView;
         private Button deletebtn;
@@ -268,5 +497,22 @@
         private DataGridViewTextBoxColumn totalMoneyOwedDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn descriptionDataGridViewTextBoxColumn;
         private BindingSource customerModelBindingSource;
+        private Button backToHomeFromnewbtn;
+        private Button addNewCustomerBtn;
+        private TextBox customerDescriptiontxt;
+        private Label label2;
+        private TextBox CustomerNametxt;
+        private Label label1;
+        private TabPage editCustomerTab;
+        private Button ReturnToHomeFromEditbtn;
+        private Button saveEditedBtn;
+        private TextBox CustomerDesEdit;
+        private Label label3;
+        private TextBox CustomerNameEdit;
+        private Label label4;
+        private TextBox IdEdittxt;
+        private Label label5;
+        private RadioButton noSortradiobtn;
+        private RadioButton sortByMoneyOwedradiobtn;
     }
 }

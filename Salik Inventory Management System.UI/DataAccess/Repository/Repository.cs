@@ -44,11 +44,11 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
 
         public IEnumerable<T> GetAll()
         {
-            using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
-            {
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+          
                 var listtoReturn= context.Set<T>().AsNoTracking().ToList();
                 return listtoReturn;
-            }
+            
         }
 
         public T GetFirstOrDefault(Expression<Func<T, bool>> filter)

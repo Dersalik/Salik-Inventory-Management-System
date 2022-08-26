@@ -57,5 +57,21 @@ namespace Salik_Inventory_Management_System.UI.Services
         {
            return  repository.Update(entity);
         }
+
+        public IEnumerable<CustomerModel> GetAllSortedByTotalMoneyOwed()
+        {
+            return repository.GetAllSortedByTotalMoneyOwed();
+        }
+
+        public IEnumerable<CustomerModel> SearchByName(string searchValue)
+        {
+            return repository.SearchByName(searchValue);
+        }
+
+        public IEnumerable<CustomerModel> SearchByNameAndOrderByTotalMoneyOwed(string searchValue)
+        {
+            return repository.SearchByNameAndOrderByTotalMoneyOwed(searchValue);
+        }
+
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Salik_Inventory_Management_System.UI.DataAccess;
 
@@ -11,9 +12,10 @@ using Salik_Inventory_Management_System.UI.DataAccess;
 namespace Salik_Inventory_Management_System.UI.Migrations
 {
     [DbContext(typeof(InventoryManagementSystemDbContext))]
-    partial class InventoryManagementSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220822073745_customerMoneyOwedDefaultValue")]
+    partial class customerMoneyOwedDefaultValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,9 +40,7 @@ namespace Salik_Inventory_Management_System.UI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("TotalMoneyOwed")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18,4)")
-                        .HasDefaultValue(0m);
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
 

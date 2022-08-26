@@ -47,6 +47,40 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
             }
         }
 
+        public IEnumerable<CustomerModel> GetAllSortedByTotalMoneyOwed()
+        {
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            
+                var fullListwithAttributtes = context.Customers
+                  .OrderByDescending(d=>d.TotalMoneyOwed)
+                  .AsNoTracking().AsEnumerable();
 
+                return fullListwithAttributtes;
+            
+        }
+
+        public IEnumerable<CustomerModel> SearchByName(string searchValue)
+        {
+
+
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            var searchResult = context.Customers.AsNoTracking().Where(d => d.FullName.Contains(searchValue)).AsEnumerable();
+
+            return searchResult;
+
+
+        }
+
+        public IEnumerable<CustomerModel> SearchByNameAndOrderByTotalMoneyOwed(string searchValue)
+        {
+
+
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            var searchResult = context.Customers.AsNoTracking().Where(d => d.FullName.Contains(searchValue)).OrderByDescending(d=>d.TotalMoneyOwed).AsEnumerable();
+
+            return searchResult;
+
+
+        }
     }
 }

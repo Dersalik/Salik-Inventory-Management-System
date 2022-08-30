@@ -261,7 +261,7 @@ namespace Salik_Inventory_Management_System.UI.Views
 
                 if (!string.IsNullOrWhiteSpace(searchtxt.Text))
                 {
-                    searchbtn.Enabled = true;
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
 
             };
@@ -278,7 +278,7 @@ namespace Salik_Inventory_Management_System.UI.Views
                 }
                 if (!string.IsNullOrWhiteSpace(searchtxt.Text))
                 {
-                    searchbtn.Enabled = true;
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
             };
 
@@ -291,7 +291,7 @@ namespace Salik_Inventory_Management_System.UI.Views
                 }
                 if (!string.IsNullOrWhiteSpace(searchtxt.Text))
                 {
-                    searchbtn.Enabled = true;
+                    SearchEvent?.Invoke(this, EventArgs.Empty); 
                 }
             };
 
@@ -323,6 +323,14 @@ namespace Salik_Inventory_Management_System.UI.Views
                 }
 
 
+            };
+
+            searchtxt.TextChanged += delegate
+            {
+                if (string.IsNullOrEmpty(searchtxt.Text))
+                {
+                    RefreshGrid?.Invoke(this, EventArgs.Empty);
+                }
             };
 
             addbtn.Click += delegate { addEvent?.Invoke(this, EventArgs.Empty);

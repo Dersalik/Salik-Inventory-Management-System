@@ -34,7 +34,13 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             this.view.sortByQuantity += sortByQuantity;
 
             LoadAllPackets();
+        }
+
+        public void showView()
+        {
+            LoadAllPackets();
             this.view.Show();
+
         }
         private static PacketPresenter instance;
         public static PacketPresenter GetInstace(IPacketView view)
@@ -117,7 +123,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
            catch(Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = "سه ر كه وتوو نه بوو";
+                view.Message = "سه ر كه وتوو نه بوو"+" "+ex.Message+" " +ex.StackTrace;
             }
         }
 
@@ -148,13 +154,13 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 catch(Exception ex)
                 {
                     view.IsSuccessful = false;
-                    view.Message =" سه ركه وتوو نه بوو" +" "+ex.Message;
+                    view.Message =" سه ركه وتوو نه بوو" +" " + ex.Message + " " + ex.StackTrace;
                 }
             }
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = " هه له له زماره ى داخل كراو هه يه" + " " + ex.Message; 
+                view.Message = " هه له له زماره ى داخل كراو هه يه" ; 
             }
         }
         private  void saveEditedItem(object? sender, EventArgs e)
@@ -187,7 +193,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = "زانياريه كان به هه له بركراو نه ته وه";          
+                view.Message = "زانياريه كان به هه له بركراو نه ته وه" ;          
             }
         }
 
@@ -256,7 +262,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             ItemList = result.ToList();
             PacketBindingSource.DataSource=ItemList;
         }
-         private  void LoadAllPackets()
+         public void LoadAllPackets()
         {
 
             var result = service.GetAll();
@@ -265,34 +271,34 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         }
         private  void searchItem(object? sender, EventArgs e)
         {
-            bool emptyValue = string.IsNullOrEmpty(this.view.searchValue);
+            bool emptyValue = string.IsNullOrWhiteSpace(this.view.searchValue);
             try
             {
-                if (emptyValue == false)
+                if (emptyValue != true)
                 {
+                  
+
+                    if (view.byprie)
+                    {
+                        ItemList=service.SearchAndSortByPrice(view.searchValue).ToList();
+                    }
+
+                    if(view.byquantity)
+                    {
+                        ItemList= service.SearchAndSortyByQuantity(view.searchValue).ToList();
+
+                    }
+                    if (view.nosort)
+                    {
+                        ItemList = service.SearchByName(this.view.searchValue).ToList(); ;
+                    }
                     view.IsSuccessful = true;
-                    var result =  service.SearchByName(this.view.searchValue);
-                    var df = result.ToList();
-                    
-                    ItemList = df.ToList();
-
-                    if (view.byprie == true)
-                    {
-                        ItemList=ItemList.OrderByDescending(d => d.ItemPrice).ToList();
-                    }
-
-                    if(view.byquantity == true)
-                    {
-                        ItemList= ItemList.OrderByDescending(d => d.ItemQuantity).ToList();
-
-                    }
 
                 }
                 else
                 {
-                    view.IsSuccessful = true;
-                    ItemList =  service.GetAll();
-                   
+                    view.IsSuccessful = false;
+                    view.Message = "ناوى كارتون بنوسه";
                 }
                 
                 PacketBindingSource.DataSource = ItemList;

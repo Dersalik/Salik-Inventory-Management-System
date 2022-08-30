@@ -19,7 +19,7 @@ namespace Salik_Inventory_Management_System.UI.Views
             AssociateAndRaiseEvents();
             CustomerTab.TabPages.Remove(editCustomerTab);
             CustomerTab.TabPages.Remove(addCustomerTab);
-
+    
         }
         private bool issuccessful;
         private string message;
@@ -66,6 +66,7 @@ namespace Salik_Inventory_Management_System.UI.Views
                     instance.WindowState = FormWindowState.Normal;
                 instance.BringToFront();
             }
+
             return instance;
         }
 
@@ -240,6 +241,14 @@ namespace Salik_Inventory_Management_System.UI.Views
 
             };
 
+            searchtxt.TextChanged += delegate
+            {
+                if (string.IsNullOrEmpty(searchtxt.Text))
+                {
+                    RefreshGrid?.Invoke(this, EventArgs.Empty);
+                }
+            };
+
             sortByMoneyOwedradiobtn.MouseClick += delegate
             {
                 if (string.IsNullOrEmpty(searchtxt.Text))
@@ -255,7 +264,6 @@ namespace Salik_Inventory_Management_System.UI.Views
                 if (!string.IsNullOrWhiteSpace(searchtxt.Text))
                 {
                     SearchEvent?.Invoke(this, EventArgs.Empty);
-                    searchbtn.Enabled = true;
 
                 }
 
@@ -275,7 +283,7 @@ namespace Salik_Inventory_Management_System.UI.Views
 
                 if (!string.IsNullOrWhiteSpace(searchtxt.Text))
                 {
-                    searchbtn.Enabled = true;
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
                 }
 
             };

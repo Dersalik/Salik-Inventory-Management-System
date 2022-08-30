@@ -72,5 +72,15 @@ namespace Salik_Inventory_Management_System.UI.Services
             return repository.GetAllSortedByQuantity();
         }
 
+        public IEnumerable<ItemModel> SearchAndSortyByQuantity(string searchValue)
+        {
+            return repository.SearchAndSortyByQuantity(searchValue);
+        }
+
+        public IEnumerable<ItemModel> SearchAndSortByPrice(string searchValue)
+        {
+            return repository.SearchAndSortByPrice(searchValue);
+        }
+
     }
 }

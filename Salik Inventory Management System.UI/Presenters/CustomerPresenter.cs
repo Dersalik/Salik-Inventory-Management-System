@@ -33,9 +33,14 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
             this.view.setCustomerBindingSource(CustomerBindingSource);
             LoadAllCustomers();
-            this.view.Show();
         }
 
+        public void showView()
+        {
+            LoadAllCustomers();
+            this.view.Show();
+
+        }
         private void LoadSelectedCustomerToEdit(object? sender, EventArgs e)
         {
             CustomerModel CustomerToEdit = (CustomerModel)CustomerBindingSource.Current;
@@ -105,7 +110,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 CustomerToEdit.FullName = this.view.fullnameEdit;
                 CustomerToEdit.Description = this.view.desEdit;
 
-                if (!string.IsNullOrEmpty(CustomerToEdit.FullName))
+                if (!string.IsNullOrEmpty(CustomerToEdit.FullName) && !string.IsNullOrWhiteSpace(CustomerToEdit.FullName))
                 {
                     CustomerModel CustomerModelFromDatabase = service.GetFirstOrDefault(d => d.Id == CustomerToEdit.Id);
                     CustomerModelFromDatabase.FullName = CustomerToEdit.FullName;
@@ -143,7 +148,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
  
                 try
                 {
-                    if (!string.IsNullOrEmpty(CustomerToAdd.FullName))
+                    if (!string.IsNullOrEmpty(CustomerToAdd.FullName) && !string.IsNullOrWhiteSpace(CustomerToAdd.FullName))
                     {
                        service.Add(CustomerToAdd);
                        view.IsSuccessful = true;
@@ -178,7 +183,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             }
 
         }
-        private void LoadAllCustomers()
+        public void LoadAllCustomers()
         {
             var result = service.GetAll();
             CustomerList = result.ToList();
@@ -200,10 +205,10 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
         private void SearchCustomer(object? sender, EventArgs e)
         {
-            bool emptyValue = string.IsNullOrEmpty(this.view.searchValue);
+            bool emptyValue =  string.IsNullOrWhiteSpace(view.searchValue);
             try
             {
-                if (emptyValue == false)
+                if (emptyValue != true)
                 {
                   
                     if (view.byOwedMoney == true)
@@ -220,9 +225,9 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 }
                 else
                 {
-                    view.IsSuccessful = true;
-                    CustomerList = service.GetAll().ToList();
-
+                    view.IsSuccessful = false;
+                    //CustomerList = service.GetAll().ToList();
+                    view.Message = "ناوى كريار بنوسه بو كه ران";
                 }
 
                 CustomerBindingSource.DataSource = CustomerList;

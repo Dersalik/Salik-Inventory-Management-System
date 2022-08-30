@@ -79,5 +79,31 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
 
         }
 
+        public IEnumerable<ItemModel> SearchAndSortByPrice(string searchValue)
+        {
+
+
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            var searchResult = context.Items.AsNoTracking().Where(d=>d.ItemName.Contains(searchValue)).OrderByDescending(d => d.ItemPrice).AsEnumerable();
+
+            return searchResult;
+
+
+        }
+
+        public IEnumerable<ItemModel> SearchAndSortyByQuantity(string searchValue)
+        {
+
+
+            InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();
+            var searchResult = context.Items.AsNoTracking().Where(d => d.ItemName.Contains(searchValue)).OrderByDescending(d => d.ItemQuantity).AsEnumerable();
+
+            return searchResult;
+
+
+        }
+
+
+
     }
 }

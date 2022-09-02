@@ -72,7 +72,8 @@ namespace Salik_Inventory_Management_System.UI.Views
 
         private void AssociateAndRaiseEvents()
         {
-
+            this.customerDataGridView.Columns["totalMoneyOwedDataGridViewTextBoxColumn"].DefaultCellStyle.FormatProvider = Program.formats;
+            this.customerDataGridView.Columns["totalMoneyOwedDataGridViewTextBoxColumn"].DefaultCellStyle.Format = "c";
             editBackgroundWorker = new BackgroundWorker();
             deleteBackgroundWorker = new BackgroundWorker();
             addBackgroundWorker = new BackgroundWorker();

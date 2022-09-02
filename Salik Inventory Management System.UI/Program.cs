@@ -9,6 +9,7 @@ using Salik_Inventory_Management_System.UI.Presenters;
 using Salik_Inventory_Management_System.UI.Views;
 using Salik_Inventory_Management_System.UI.Views.view_Interfaces;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Salik_Inventory_Management_System.UI
 {
@@ -22,6 +23,7 @@ namespace Salik_Inventory_Management_System.UI
         {
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
+            formats.CurrencySymbol = "$";
 
             Application.ThreadException += new ThreadExceptionEventHandler(Form1_UIThreadException);
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
@@ -38,6 +40,11 @@ namespace Salik_Inventory_Management_System.UI
 
             Application.Run((Form)mainView);
         }
+        public static NumberFormatInfo formats = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
+        
+
+
+
        public static ConfigurationForDatabase Config = new ConfigurationForDatabase();
         public static string ConncetionString = Config.configuration.GetConnectionString("DefaultConnection");
         public static  IServiceProvider ServiceProvider { get;  set; }

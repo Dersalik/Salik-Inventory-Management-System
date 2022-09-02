@@ -37,7 +37,8 @@ namespace Salik_Inventory_Management_System.UI.Views
         
         private void AssociateAndRaiseEvents()
         {
-
+            this.PacketDataGridView.Columns["itemPriceDataGridViewTextBoxColumn"].DefaultCellStyle.FormatProvider = Program.formats;
+            this.PacketDataGridView.Columns["itemPriceDataGridViewTextBoxColumn"].DefaultCellStyle.Format = "c";
             editBackgroundWorker = new BackgroundWorker();
             deleteBackgroundWorker = new BackgroundWorker();
             addBackgroundWorker = new BackgroundWorker();

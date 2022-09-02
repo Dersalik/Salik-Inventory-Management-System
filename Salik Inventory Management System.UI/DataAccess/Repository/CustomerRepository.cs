@@ -47,6 +47,19 @@ namespace Salik_Inventory_Management_System.UI.DataAccess.Repository
             }
         }
 
+        public CustomerModel GetFirstOrDefaulWithPayments(int id)
+        {
+            using (InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext())
+            {
+                var firstordefault = context.Customers.Include(d => d.payments.OrderByDescending(d => d.PaymentDate))
+                    .AsNoTracking().FirstOrDefault(d=>d.Id==id);
+                   
+
+                return firstordefault;
+            }
+        }
+
+
         public IEnumerable<CustomerModel> GetAllSortedByTotalMoneyOwed()
         {
             InventoryManagementSystemDbContext context = _dbContextfactory.CreateDbContext();

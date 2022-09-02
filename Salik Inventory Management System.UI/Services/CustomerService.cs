@@ -26,7 +26,10 @@ namespace Salik_Inventory_Management_System.UI.Services
         {
             return  repository.GetFirstOrDefaultFully(id);
         }
-
+        public CustomerModel GetFirstOrDefaulWithPayments(int id)
+        {
+            return repository.GetFirstOrDefaulWithPayments(id);
+        }
 
         public bool Add(CustomerModel entity)
         {

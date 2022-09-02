@@ -18,6 +18,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         private BindingSource PaymentBindingSource;
         private IEnumerable<Payment> PaymentList;
         private CustomerService customerService;
+        private CustomerModel SelectedCustomer;
         public PaymentPresenter(IPaymentView view)
         {
           this.view = view;
@@ -25,9 +26,14 @@ namespace Salik_Inventory_Management_System.UI.Presenters
           customerService=new CustomerService();
           CustomerBindingSource = new BindingSource();
           PaymentBindingSource=new BindingSource();
-          view.loadAllPaymentsOfACustomer += LoadAllPaymentsOfACustomer;
           this.view.setCustomerBindingSource(CustomerBindingSource);
           this.view.setPaymentBindingSource(PaymentBindingSource);
+          view.loadAllPaymentsOfACustomer += LoadAllPaymentsOfACustomer;
+          this.view.RefreshCustomerGrid += LoadAllCustomers;
+          view.addPayment += addNewPayment;
+          view.ChangeSelectedCustomer += ChangeSelectedCustomer;
+          view.removePayment += deletePayment;
+          view.updatePayment += LoadPaymentToEdit;
         }
         public void showView()
         {
@@ -50,25 +56,107 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             }
 
         }
+        private void addNewPayment(object? sender, EventArgs e)
+        {
+            try
+            {
+                
+                decimal MoneyPaidConvertToDecimal = decimal.Parse(view.newPaymentAmmountToAdd);
+                
+                if(MoneyPaidConvertToDecimal > 0)
+                {
+                    try
+                    {
+                        CustomerModel customerAddPayment = customerService.GetFirstOrDefaultFully(SelectedCustomer.Id);
+                        Payment newPayment = new Payment();
+                        newPayment.PaymentDate = DateTime.Now;
+                        newPayment.PaymentAmount = MoneyPaidConvertToDecimal;
+                        newPayment.Customer = customerAddPayment;
+                        customerAddPayment.payments.Add(newPayment);
+                        customerAddPayment.TotalMoneyOwed -= MoneyPaidConvertToDecimal;
+                        customerService.Update(customerAddPayment);
+                        view.IsSuccessful = true;
+                        view.Message = MoneyPaidConvertToDecimal.ToString() + " " + "به سه ر كه وتووى زيادكرا";
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        view.IsSuccessful = false;
+                        view.Message = ex.Message + ex.StackTrace + " سه ركه وتوو نه بوو";
+                    }
+                }
+                else
+                {
+                    view.IsSuccessful = false;
+                    view.Message = "برى باره نابى 0 يان سالب بيت";
+                }
+            }
+            catch(Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "برى باره به هه له داخل كراوه";
+            }
+        }
+        private void deletePayment(object? sender, EventArgs e)
+        {
+            Payment paymentToDelete = (Payment)PaymentBindingSource.Current;
+
+            try
+            {
+                Payment fromDb = PaymentService.GetFirstOrDefaultFully(paymentToDelete.Id);
+                PaymentService.Delete(fromDb);
+
+                CustomerModel customerDeletePayment = customerService.GetFirstOrDefaultFully(SelectedCustomer.Id);
+                customerDeletePayment.TotalMoneyOwed += fromDb.PaymentAmount;
+                customerDeletePayment.payments.Remove(fromDb);
+                customerService.Update(customerDeletePayment);
+                view.IsSuccessful = true;
+                view.Message = "به سه ر كه وتوى ره شكراوه  و باره كه خرايه وه سه ر حسابى كريار وه ك قه رز "+paymentToDelete.PaymentAmount;
+            }
+            catch(Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "سه ركه وتوو نه بوو"+" "+ex.Message+ex.StackTrace;
+            }
+        }
+
+        private void LoadPaymentToEdit(object? sender, EventArgs e)
+        {
+            Payment payment = (Payment)PaymentBindingSource.Current;
+            view.IdEdit = payment.Id.ToString();
+            view.DateEdit = payment.PaymentDate.ToString();
+            view.PaymentAmountEdit = payment.PaymentAmount.ToString();
+        }
         private void LoadAllCustomers()
         {
 
-            var result = customerService.GetAll();
+            var result = customerService.GetAllSortedByTotalMoneyOwed();
+            CustomerList = result.ToList();
+            CustomerBindingSource.DataSource = CustomerList;
+        }
+        private void LoadAllCustomers(object? sender, EventArgs e)
+        {
+
+            var result = customerService.GetAllSortedByTotalMoneyOwed();
             CustomerList = result.ToList();
             CustomerBindingSource.DataSource = CustomerList;
         }
 
         private void LoadAllPaymentsOfACustomer(object? sender, EventArgs e)
         {
-            CustomerModel customer = (CustomerModel)CustomerBindingSource.Current;
-
-            view.LabelName = customer.FullName;
-            view.TabName = customer.FullName;
 
             try
             {
-              CustomerModel customerModel = customerService.GetFirstOrDefaultFully(customer.Id);
-              PaymentBindingSource.DataSource = customer.payments.ToList(); 
+              CustomerModel customerModel = customerService.GetFirstOrDefaulWithPayments(SelectedCustomer.Id);
+              PaymentList = customerModel.payments.ToList(); 
+              PaymentBindingSource.DataSource = PaymentList;
+
+              view.LabelName = customerModel.FullName;
+              view.TabName = customerModel.FullName;
+              //view.MoneyOwed = customerModel.TotalMoneyOwed.ToString();
+              view.MoneyOwed=  string.Format(Program.formats, "{0:c}", customerModel.TotalMoneyOwed);
+
             }
             catch (Exception ex)
             {
@@ -77,5 +165,12 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             }
 
         }
+
+        private void ChangeSelectedCustomer(object? sender, EventArgs e)
+        {
+            SelectedCustomer= (CustomerModel)CustomerBindingSource.Current;
+        }
+
+
     }
 }

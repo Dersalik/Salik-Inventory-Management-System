@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Salik_Inventory_Management_System.UI.Configuration;
 using Salik_Inventory_Management_System.UI.DataAccess;
-using Salik_Inventory_Management_System.UI.DataAccess.Repository;
-using Salik_Inventory_Management_System.UI.Models;
 using Salik_Inventory_Management_System.UI.Presenters;
 using Salik_Inventory_Management_System.UI.Views;
 using Salik_Inventory_Management_System.UI.Views.view_Interfaces;
+using Serilog;
+using Serilog.Core;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -37,8 +37,16 @@ namespace Salik_Inventory_Management_System.UI
             IMainView mainView = GetService<MainView>();
             new MainPresenter(mainView);
 
+            bool test = File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "log.txt"));
 
-            Application.Run((Form)mainView);
+            try
+            {
+                Application.Run((Form)mainView);
+            }
+            finally
+            {
+                Log.CloseAndFlush(); // <<#<<#<<#<<#
+            }
         }
         public static NumberFormatInfo formats = (NumberFormatInfo)NumberFormatInfo.CurrentInfo.Clone();
         
@@ -51,14 +59,20 @@ namespace Salik_Inventory_Management_System.UI
         public static void ConfigureServices()
         {
             var services = new ServiceCollection();
-            
+
+            //var serilogLogger = new LoggerConfiguration()
+            //      .WriteTo.File("loggingFile.txt")
+            //      .CreateLogger();
             //dependencies
             services.AddDbContext<InventoryManagementSystemDbContext>(options=>options.UseSqlServer(ConncetionString));
             services.AddSingleton<SalikInventoryManagementDbContextFactory>();
             services.AddSingleton<MainView>();
-            ServiceProvider=services.BuildServiceProvider();
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.File(Path.Combine(Directory.GetCurrentDirectory(), "log.txt"), rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+            ServiceProvider =services.BuildServiceProvider();
         }
-
         public static T? GetService<T>() where T:class
         {
             return (T?)ServiceProvider.GetService(typeof(T));

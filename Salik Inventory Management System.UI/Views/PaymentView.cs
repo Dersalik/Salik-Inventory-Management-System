@@ -85,12 +85,45 @@ namespace Salik_Inventory_Management_System.UI.Views
                 }
                 deletePaymentBtn.Enabled = true;
             };
+
+            editBackgroundWorker.DoWork += delegate
+            {
+                this.saveUpdatePayment?.Invoke(this, EventArgs.Empty);
+            };
+            editBackgroundWorker.RunWorkerCompleted += delegate
+            {
+                if (IsSuccessful)
+                {
+                    loadAllPaymentsOfACustomer?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(message);
+
+                }
+                if (!IsSuccessful)
+                {
+                    MessageBox.Show(message);
+
+                }
+                saveeditBtn.Enabled = true;
+
+            };
             #endregion
 
 
 
 
             #region button
+            saveeditBtn.Click += delegate
+            {
+                saveeditBtn.Enabled = false;
+                try
+                {
+                    editBackgroundWorker.RunWorkerAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + " " + ex.StackTrace);
+                }
+            };
             Paybtn.Click += delegate
             {
                 Paybtn.Enabled = false;

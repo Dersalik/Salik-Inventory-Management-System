@@ -1,6 +1,7 @@
 ﻿using Salik_Inventory_Management_System.UI.Models;
 using Salik_Inventory_Management_System.UI.Services;
 using Salik_Inventory_Management_System.UI.Views.view_Interfaces;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             this.view.SearchEvent += SearchCustomer;
             this.view.RefreshGrid += LoadAllCustomers;
             this.view.SortByMoneyOwed += SortByTotalAmountMoneyOwed;
+            Log.Logger.Error("Hello");
 
             this.view.setCustomerBindingSource(CustomerBindingSource);
             LoadAllCustomers();

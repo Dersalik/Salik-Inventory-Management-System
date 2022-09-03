@@ -34,6 +34,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
           view.ChangeSelectedCustomer += ChangeSelectedCustomer;
           view.removePayment += deletePayment;
           view.updatePayment += LoadPaymentToEdit;
+            view.saveUpdatePayment += editPayment;
         }
         public void showView()
         {
@@ -119,6 +120,60 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 view.IsSuccessful = false;
                 view.Message = "سه ركه وتوو نه بوو"+" "+ex.Message+ex.StackTrace;
             }
+        }
+
+        private void editPayment(object? sender, EventArgs e)
+        {
+            Payment paymentToEdit = (Payment)PaymentBindingSource.Current;
+            
+            try
+            {
+                if (string.IsNullOrWhiteSpace(view.PaymentAmountEdit))
+                {
+                    throw new ArgumentNullException();
+                }
+                decimal InputtedPayment = decimal.Parse(view.PaymentAmountEdit);
+                try
+                {
+                    CustomerModel customerToEditPayment = customerService.GetFirstOrDefaultFully(SelectedCustomer.Id);
+                    if (InputtedPayment > paymentToEdit.PaymentAmount)
+                    {
+                        decimal difference = InputtedPayment - paymentToEdit.PaymentAmount;
+                        customerToEditPayment.TotalMoneyOwed-=difference;
+                        customerToEditPayment.payments.Find(d => d.Id == paymentToEdit.Id).PaymentAmount=InputtedPayment;
+                        customerService.Update(customerToEditPayment);
+                        view.IsSuccessful = true;
+                        view.Message = "برى باره ده ستكارى كرا و باره ى زيادكراو كه مكرا له حسابى كريار" + "$" + difference.ToString();
+                    }
+
+                    if(InputtedPayment < paymentToEdit.PaymentAmount && InputtedPayment>0)
+                    {
+                        decimal difference = paymentToEdit.PaymentAmount - InputtedPayment;
+                        customerToEditPayment.TotalMoneyOwed += difference;
+                        customerToEditPayment.payments.Find(d => d.Id == paymentToEdit.Id).PaymentAmount = InputtedPayment;
+                        customerService.Update(customerToEditPayment);
+                        view.IsSuccessful = true;
+                        view.Message = "برى باره ده ستكارى كراو باره ى كه مكراو خرايه وه سه ر حسابى كريار" + "$" + difference.ToString();
+
+                    }
+                    if(InputtedPayment <= 0)
+                    {
+                        view.IsSuccessful = false;
+                        view.Message = "برى باره به هه له داخل كراوه";
+                    }
+                }
+                catch(Exception ex)
+                {
+                    view.IsSuccessful = false;
+                    view.Message = "سه ركه وتوو نه بوو" + " " + ex.Message + ex.StackTrace;
+                }
+            }
+            catch(Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "برى باره به هه له داخل كراوه";
+            }
+
         }
 
         private void LoadPaymentToEdit(object? sender, EventArgs e)

@@ -30,7 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaymentView));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.customerModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.paymentBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.paymentBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -64,6 +66,8 @@
             this.fullNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalMoneyOwedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.paymentTab = new System.Windows.Forms.TabControl();
+            this.searchbtn = new System.Windows.Forms.Button();
+            this.searchtxt = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.customerModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.paymentBindingSource)).BeginInit();
@@ -337,14 +341,14 @@
             this.customerPaymentsGridView.AutoGenerateColumns = false;
             this.customerPaymentsGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.customerPaymentsGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.customerPaymentsGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.customerPaymentsGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.customerPaymentsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.customerPaymentsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
@@ -401,6 +405,8 @@
             // 
             // AllCustomersTab
             // 
+            this.AllCustomersTab.Controls.Add(this.searchtxt);
+            this.AllCustomersTab.Controls.Add(this.searchbtn);
             this.AllCustomersTab.Controls.Add(this.AllPaymentsbtn);
             this.AllCustomersTab.Controls.Add(this.ListOfCustomersGridView);
             this.AllCustomersTab.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -432,6 +438,8 @@
             this.ListOfCustomersGridView.AllowUserToAddRows = false;
             this.ListOfCustomersGridView.AllowUserToDeleteRows = false;
             this.ListOfCustomersGridView.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ListOfCustomersGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.ListOfCustomersGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -443,6 +451,14 @@
             this.fullNameDataGridViewTextBoxColumn,
             this.totalMoneyOwedDataGridViewTextBoxColumn});
             this.ListOfCustomersGridView.DataSource = this.customerModelBindingSource;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ListOfCustomersGridView.DefaultCellStyle = dataGridViewCellStyle6;
             this.ListOfCustomersGridView.Location = new System.Drawing.Point(3, 119);
             this.ListOfCustomersGridView.MultiSelect = false;
             this.ListOfCustomersGridView.Name = "ListOfCustomersGridView";
@@ -467,7 +483,7 @@
             // 
             this.totalMoneyOwedDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.totalMoneyOwedDataGridViewTextBoxColumn.DataPropertyName = "TotalMoneyOwed";
-            this.totalMoneyOwedDataGridViewTextBoxColumn.HeaderText = "كوى كشتى قه رز";
+            this.totalMoneyOwedDataGridViewTextBoxColumn.HeaderText = "كؤى كشتى قه رز";
             this.totalMoneyOwedDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.totalMoneyOwedDataGridViewTextBoxColumn.Name = "totalMoneyOwedDataGridViewTextBoxColumn";
             this.totalMoneyOwedDataGridViewTextBoxColumn.ReadOnly = true;
@@ -484,6 +500,30 @@
             this.paymentTab.SelectedIndex = 0;
             this.paymentTab.Size = new System.Drawing.Size(1031, 507);
             this.paymentTab.TabIndex = 0;
+            // 
+            // searchbtn
+            // 
+            this.searchbtn.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.searchbtn.Image = ((System.Drawing.Image)(resources.GetObject("searchbtn.Image")));
+            this.searchbtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.searchbtn.Location = new System.Drawing.Point(461, 52);
+            this.searchbtn.Name = "searchbtn";
+            this.searchbtn.Size = new System.Drawing.Size(108, 38);
+            this.searchbtn.TabIndex = 2;
+            this.searchbtn.Text = "كه ران";
+            this.searchbtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.searchbtn.UseVisualStyleBackColor = true;
+            // 
+            // searchtxt
+            // 
+            this.searchtxt.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.searchtxt.Location = new System.Drawing.Point(258, 56);
+            this.searchtxt.Name = "searchtxt";
+            this.searchtxt.PlaceholderText = "ناوى كريار بنوسه";
+            this.searchtxt.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.searchtxt.Size = new System.Drawing.Size(197, 31);
+            this.searchtxt.TabIndex = 3;
+            this.searchtxt.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // PaymentView
             // 
@@ -503,6 +543,7 @@
             this.PaymentsOfCustomerTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customerPaymentsGridView)).EndInit();
             this.AllCustomersTab.ResumeLayout(false);
+            this.AllCustomersTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListOfCustomersGridView)).EndInit();
             this.paymentTab.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -532,8 +573,6 @@
         private TabPage AllCustomersTab;
         private Button AllPaymentsbtn;
         private DataGridView ListOfCustomersGridView;
-        private DataGridViewTextBoxColumn fullNameDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn totalMoneyOwedDataGridViewTextBoxColumn;
         private TabControl paymentTab;
         private Label label6;
         private Label label5;
@@ -543,5 +582,9 @@
         private TextBox IdEdittxt;
         private Button returnToPaymentsbtn;
         private Button saveeditBtn;
+        private DataGridViewTextBoxColumn fullNameDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn totalMoneyOwedDataGridViewTextBoxColumn;
+        private TextBox searchtxt;
+        private Button searchbtn;
     }
 }

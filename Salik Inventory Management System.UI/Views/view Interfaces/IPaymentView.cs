@@ -22,11 +22,13 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         string PaymentAmountEdit { get; set; }
         bool IsSuccessful { get; set; }
         string Message { get; set; }
+        string searchvalue { get; set; }
         void setCustomerBindingSource(BindingSource customerList);
         void setPaymentBindingSource(BindingSource paymentList);
         event EventHandler RefreshCustomerGrid;
         event EventHandler RefreshPaymentGrid;
         event EventHandler ChangeSelectedCustomer;
+        event EventHandler searchEvent;
         public void Show();
     }
 }

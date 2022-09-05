@@ -34,7 +34,8 @@ namespace Salik_Inventory_Management_System.UI.Presenters
           view.ChangeSelectedCustomer += ChangeSelectedCustomer;
           view.removePayment += deletePayment;
           view.updatePayment += LoadPaymentToEdit;
-            view.saveUpdatePayment += editPayment;
+          view.saveUpdatePayment += editPayment;
+          view.searchEvent += SearchCustomer;
         }
         public void showView()
         {
@@ -161,6 +162,11 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                         view.IsSuccessful = false;
                         view.Message = "برى باره به هه له داخل كراوه";
                     }
+                    if(paymentToEdit.PaymentAmount == InputtedPayment)
+                    {
+                        view.IsSuccessful = false;
+                        view.Message = "برى باره هه مان بره ";
+                    }
                 }
                 catch(Exception ex)
                 {
@@ -190,6 +196,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             CustomerList = result.ToList();
             CustomerBindingSource.DataSource = CustomerList;
         }
+     
         private void LoadAllCustomers(object? sender, EventArgs e)
         {
 
@@ -197,7 +204,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             CustomerList = result.ToList();
             CustomerBindingSource.DataSource = CustomerList;
         }
-
+       
         private void LoadAllPaymentsOfACustomer(object? sender, EventArgs e)
         {
 
@@ -224,6 +231,35 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         private void ChangeSelectedCustomer(object? sender, EventArgs e)
         {
             SelectedCustomer= (CustomerModel)CustomerBindingSource.Current;
+        }
+
+        private void SearchCustomer(object? sender, EventArgs e)
+        {
+            bool emptyValue = string.IsNullOrWhiteSpace(view.searchvalue);
+            try
+            {
+                if (emptyValue != true)
+                {
+
+                  
+                    CustomerList = customerService.SearchByNameAndOrderByTotalMoneyOwed(this.view.searchvalue).ToList();
+                    view.IsSuccessful = true;
+                    CustomerBindingSource.DataSource = CustomerList;
+
+                }
+                else
+                {
+                    view.IsSuccessful = false;
+                    //CustomerList = service.GetAll().ToList();
+                    view.Message = "ناوى كريار بنوسه بو كه ران";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                view.Message = ex.Message + " " + ex.StackTrace;
+                view.IsSuccessful = false;
+            }
         }
 
 

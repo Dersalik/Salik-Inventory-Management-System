@@ -112,6 +112,56 @@ namespace Salik_Inventory_Management_System.UI.Views
 
 
             #region button
+            searchbtn.Enabled = false;
+
+            searchtxt.TextChanged += delegate
+            {
+                searchbtn.Enabled = true;
+            };
+
+            searchbtn.Click += delegate {
+                searchbtn.Enabled = false;
+                searchEvent?.Invoke(this, EventArgs.Empty);
+
+                if (IsSuccessful == false)
+                {
+                    MessageBox.Show(Message);
+
+
+                }
+
+
+            };
+
+            searchtxt.KeyDown += (s, e) =>
+            {
+
+                if (e.KeyCode == Keys.Enter)
+                {
+                    searchEvent?.Invoke(this, EventArgs.Empty);
+                    if (IsSuccessful == false)
+                    {
+                        MessageBox.Show(Message);
+                    };
+                }
+
+            };
+
+            searchtxt.TextChanged += delegate
+            {
+                if (string.IsNullOrEmpty(searchtxt.Text))
+                {
+                    RefreshCustomerGrid?.Invoke(this, EventArgs.Empty);
+                }
+            };
+            ///
+
+            paymentAmountedittxt.TextChanged += delegate
+            {
+                saveeditBtn.Enabled = true;
+
+            };
+
             saveeditBtn.Click += delegate
             {
                 saveeditBtn.Enabled = false;
@@ -187,6 +237,8 @@ namespace Salik_Inventory_Management_System.UI.Views
                 updatePayment?.Invoke(this, EventArgs.Empty);
                 paymentTab.TabPages.Remove(PaymentsOfCustomerTab);
                 paymentTab.TabPages.Add(EditTab);
+                saveeditBtn.Enabled = false;
+
             };
             returnToPaymentsbtn.Click += delegate
             {
@@ -196,7 +248,14 @@ namespace Salik_Inventory_Management_System.UI.Views
             };
             returnbtn.Click += delegate
             {
-                RefreshCustomerGrid?.Invoke(this, EventArgs.Empty);
+                if (string.IsNullOrWhiteSpace(searchtxt.Text))
+                {
+                  RefreshCustomerGrid?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    searchEvent.Invoke(this, EventArgs.Empty);
+                }
                 paymentTab.TabPages.Remove(PaymentsOfCustomerTab);
                 paymentTab.TabPages.Add(AllCustomersTab);
             };
@@ -217,6 +276,7 @@ namespace Salik_Inventory_Management_System.UI.Views
         public event EventHandler updatePayment;
         public event EventHandler ChangeSelectedCustomer;
         public event EventHandler saveUpdatePayment;
+        public event EventHandler searchEvent;
 
         public string TabName { get => PaymentsOfCustomerTab.Text; set => PaymentsOfCustomerTab.Text=value; }
         public string LabelName { get => customernamelbl.Text; set => customernamelbl.Text = value; }
@@ -227,6 +287,7 @@ namespace Salik_Inventory_Management_System.UI.Views
         public string IdEdit { get => IdEdittxt.Text; set => IdEdittxt.Text=value; }
         public string DateEdit { get => Dateedittxt.Text; set => Dateedittxt.Text=value; }
         public string PaymentAmountEdit { get => paymentAmountedittxt.Text; set => paymentAmountedittxt.Text=value; }
+        public string searchvalue { get => searchtxt.Text; set => searchtxt.Text=value; }
 
         public static PaymentView GetInstace(Form parentContainer)
         {
@@ -307,6 +368,11 @@ namespace Salik_Inventory_Management_System.UI.Views
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

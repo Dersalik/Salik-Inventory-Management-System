@@ -13,12 +13,11 @@ namespace Salik_Inventory_Management_System.UI.Views
 {
     public partial class MainView : Form,IMainView
     {
+        BackgroundWorker paymentBg;
         public MainView()
         {
             InitializeComponent();
-            PacketNav.Click += delegate { ShowPacketNav?.Invoke(this, EventArgs.Empty); };
-            CustomerNav.Click+=delegate { ShowCustomerNav?.Invoke(this, EventArgs.Empty); };
-            PaymentNav.Click+=delegate { ShowPaymentNav?.Invoke(this, EventArgs.Empty); };
+            AssociateAndRaiseEvents();
         }
 
         public event EventHandler ShowHome;
@@ -28,6 +27,15 @@ namespace Salik_Inventory_Management_System.UI.Views
         public event EventHandler ShowPaymentNav;
         public event EventHandler ShowRaportNav;
 
+        private void AssociateAndRaiseEvents()
+        {
+            
+
+            PacketNav.Click += delegate { ShowPacketNav?.Invoke(this, EventArgs.Empty); };
+            CustomerNav.Click += delegate { ShowCustomerNav?.Invoke(this, EventArgs.Empty); };
+            PaymentNav.Click += delegate { ShowPaymentNav?.Invoke(this, EventArgs.Empty); };
+            OrderNav.Click += delegate { ShowOrderNav?.Invoke(this, EventArgs.Empty); };
+        }
         private void button1_Click(object sender, EventArgs e)
         {
 

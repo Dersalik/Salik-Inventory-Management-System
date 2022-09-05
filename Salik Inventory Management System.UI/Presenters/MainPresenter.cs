@@ -17,12 +17,15 @@ namespace Salik_Inventory_Management_System.UI.Presenters
         CustomerPresenter customerPresenter;
         IPaymentView paymentView;
         PaymentPresenter paymentPresenter;
+        OrderView orderView;
+        OrderPresenter orderPresenter;
         public MainPresenter(IMainView mainView)
         {
             this.mainView = mainView;
             this.mainView.ShowPacketNav += ShowPacketNav;
             this.mainView.ShowCustomerNav += ShowCustomerNav;
             this.mainView.ShowPaymentNav += ShowPaymentNav;
+            this.mainView.ShowOrderNav += ShowOrderNav;
             packetView = PacketView.GetInstace((MainView)mainView);
             packetPresenter = PacketPresenter.GetInstace(packetView);
 
@@ -31,6 +34,9 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
             paymentView = PaymentView.GetInstace((MainView)mainView);
             paymentPresenter=PaymentPresenter.GetInstace(paymentView);
+
+            orderView = OrderView.GetInstace((MainView)mainView);
+            orderPresenter=OrderPresenter.GetInstace(orderView);
 
         }
 
@@ -41,7 +47,9 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             packetView = PacketView.GetInstace((MainView)mainView);
             packetPresenter = PacketPresenter.GetInstace(packetView);
             packetPresenter.showView();
+
         }
+        
 
         public void ShowCustomerNav(object sender, EventArgs e)
         {
@@ -60,5 +68,13 @@ namespace Salik_Inventory_Management_System.UI.Presenters
 
             paymentPresenter.showView();
         }
+        public void ShowOrderNav(object sender, EventArgs e)
+        {
+            orderView = OrderView.GetInstace((MainView)mainView);
+            orderPresenter = OrderPresenter.GetInstace(orderView);
+
+            orderPresenter.showView();
+        }
+        
     }
 }

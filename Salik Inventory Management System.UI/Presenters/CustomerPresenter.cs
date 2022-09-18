@@ -31,7 +31,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             this.view.SearchEvent += SearchCustomer;
             this.view.RefreshGrid += LoadAllCustomers;
             this.view.SortByMoneyOwed += SortByTotalAmountMoneyOwed;
-            Log.Logger.Error("Hello");
+            //Log.Logger.Error("Hello");
 
             this.view.setCustomerBindingSource(CustomerBindingSource);
             LoadAllCustomers();

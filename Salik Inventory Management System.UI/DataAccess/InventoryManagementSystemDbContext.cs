@@ -16,6 +16,10 @@ namespace Salik_Inventory_Management_System.UI.DataAccess
         public DbSet<OrderItem> OrderItem{get;set; }
         public DbSet<OrderModel> Orders{get;set; }
         public DbSet<Payment> Payments{get;set; }
+        public DbSet<CompanyPayment> companyPayments{get;set; }
+        public DbSet<MardCompany> mardCompany{get;set; }
+        public DbSet<User> User { get; set; }
+
 
         public InventoryManagementSystemDbContext(DbContextOptions<InventoryManagementSystemDbContext> options) : base(options)  { }
 
@@ -63,6 +67,17 @@ namespace Salik_Inventory_Management_System.UI.DataAccess
             modelBuilder.Entity<CustomerModel>()
                 .Property(d => d.TotalMoneyOwed)
                 .HasDefaultValue(decimal.Zero);
+
+            modelBuilder.Entity<MardCompany>()
+                .HasMany(d => d.Items)
+                .WithOne(d => d.company)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<MardCompany>()
+                .HasMany(d => d.PaymentsReceivedFromTheUser)
+                .WithOne(d => d.company)
+                .OnDelete(DeleteBehavior.NoAction);
+                
 
             base.OnModelCreating(modelBuilder);
         }

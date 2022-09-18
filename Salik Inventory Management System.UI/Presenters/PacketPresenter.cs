@@ -14,12 +14,14 @@ namespace Salik_Inventory_Management_System.UI.Presenters
     {
         private IPacketView view;
         private ItemService service;
+        private MardService mardService;
         private BindingSource PacketBindingSource;
         private IEnumerable<ItemModel> ItemList;
         private  PacketPresenter(IPacketView view)
         {
             this.view = view;
             this.service = new ItemService();
+            this.mardService=new MardService();
             this.PacketBindingSource = new BindingSource();
             this.view.SearchEvent += searchItem;
             this.view.saveNewlyaddedEvent += addnewpacket;
@@ -63,7 +65,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             {
                
                     view.IsSuccessful = true;
-                var result = service.GetAllSortedByPrice();
+                    var result = service.GetAllSortedByPrice();
                     
                     ItemList = result.ToList();
 
@@ -133,6 +135,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             view.IdEdit = itemToEdit.Id.ToString();
             view.ItemNameedit = itemToEdit.ItemName;
             view.ItemPriceedit = itemToEdit.ItemPrice.ToString();
+            view.ItemBuyingPriceEdit = itemToEdit.ItemPriceBought.ToString();
             view.ItemQuantityedit = itemToEdit.ItemQuantity.ToString();
             view.Descriptionedit = itemToEdit.Description;
         }
@@ -144,10 +147,14 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             try
             {
                 itemToEdit.ItemQuantity = itemToEdit.ItemQuantity+ double.Parse(view.updateQuantityPrompt);
+                double newQuantity= double.Parse(view.updateQuantityPrompt);
                 try
                 {
                     
                     service.Update(itemToEdit);
+                    var company = mardService.GetFirstOrDefaultFully();
+                    company.TotalMoneyOwedByUserToTheCompany += itemToEdit.ItemPriceBought * ((decimal)newQuantity);
+                    mardService.Update(company);
                     view.IsSuccessful = true;
                     view.Message = $"{itemToEdit.ItemName} زماره ى نوى زيادكرا بو كارتونى ";
                 }
@@ -169,18 +176,35 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             {
                 
                 ItemModel ItemToUpdate = new ItemModel();
+                double newQuantity= double.Parse(view.ItemQuantityedit);
                 ItemToUpdate.Id=Convert.ToInt32(view.IdEdit);
                 ItemToUpdate.ItemName = this.view.ItemNameedit;
                 ItemToUpdate.Description = this.view.Descriptionedit;
                 ItemToUpdate.ItemPrice = Decimal.Parse(this.view.ItemPriceedit);
-                ItemToUpdate.ItemQuantity = double.Parse(this.view.ItemQuantityedit);
-
+                ItemToUpdate.ItemPriceBought = Decimal.Parse(this.view.ItemBuyingPriceEdit);
+                //ItemToUpdate.ItemQuantity = newQuantity;
+                
+               
                 try
                 {
                     view.IsSuccessful = true;
                     view.Message = "به سه ركه وتوى ده ست كارى كرا";
-                  
-                     service.Update(ItemToUpdate);
+                    var item = service.GetFirstOrDefault(d => d.Id == ItemToUpdate.Id);
+                    if(newQuantity > item.ItemQuantity)
+                    {
+                        var IncreaseOwedMoney = ((decimal)(newQuantity - item.ItemQuantity)) * ItemToUpdate.ItemPrice;
+                        var company = mardService.GetFirstOrDefaultFully();
+                        company.TotalMoneyOwedByUserToTheCompany += IncreaseOwedMoney;
+                        mardService.Update(company);
+                    }
+                    if (newQuantity < item.ItemQuantity)
+                    {
+                        var DecreasedOwedMoneyAmount = ((decimal)(item.ItemQuantity - newQuantity)) * ItemToUpdate.ItemPrice;
+                        var company = mardService.GetFirstOrDefaultFully();
+                        company.TotalMoneyOwedByUserToTheCompany -= DecreasedOwedMoneyAmount;
+                        mardService.Update(company);
+                    }
+                    service.Update(ItemToUpdate);
                  
                 }
                 catch (Exception ex)
@@ -208,16 +232,20 @@ namespace Salik_Inventory_Management_System.UI.Presenters
                 ItemToAdd.ItemName = this.view.ItemName;
                 ItemToAdd.Description = this.view.Description;
                 ItemToAdd.ItemPrice = Decimal.Parse(this.view.ItemPrice);
+                ItemToAdd.ItemPriceBought = Decimal.Parse(this.view.ItemBuyingPrice);
                 ItemToAdd.ItemQuantity = double.Parse(this.view.ItemQuantity);
                 try
                 {
                     if(!string.IsNullOrEmpty(ItemToAdd.ItemName))
                     {
-                        if(ItemToAdd.ItemPrice !=0 && ItemToAdd.ItemQuantity != 0)
+                        if (ItemToAdd.ItemPrice > 0 && ItemToAdd.ItemQuantity > 0 && ItemToAdd.ItemPriceBought > 0)
                         {
                             view.IsSuccessful = true;
                             view.Message = "به سه ركه وتوى زياد كرا";
                             service.Add(ItemToAdd);
+                            var company = mardService.GetFirstOrDefaultFully();
+                            company.TotalMoneyOwedByUserToTheCompany += ItemToAdd.ItemPriceBought*((decimal)ItemToAdd.ItemQuantity);
+                            mardService.Update(company);
                         }
                         else
                         {
@@ -251,6 +279,7 @@ namespace Salik_Inventory_Management_System.UI.Presenters
             view.ItemName = "";
             view.ItemQuantity = "";
             view.ItemPrice = "";
+            view.ItemBuyingPrice = "";
             view.Description = "";
 
         }

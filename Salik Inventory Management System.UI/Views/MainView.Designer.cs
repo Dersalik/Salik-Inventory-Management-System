@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.navMenu = new System.Windows.Forms.Panel();
-            this.RaportNav = new System.Windows.Forms.Button();
+            this.CompanyNav = new System.Windows.Forms.Button();
             this.PaymentNav = new System.Windows.Forms.Button();
             this.PacketNav = new System.Windows.Forms.Button();
             this.CustomerNav = new System.Windows.Forms.Button();
@@ -42,33 +42,34 @@
             // navMenu
             // 
             this.navMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.navMenu.Controls.Add(this.RaportNav);
+            this.navMenu.Controls.Add(this.CompanyNav);
             this.navMenu.Controls.Add(this.PaymentNav);
             this.navMenu.Controls.Add(this.PacketNav);
             this.navMenu.Controls.Add(this.CustomerNav);
             this.navMenu.Controls.Add(this.OrderNav);
             this.navMenu.Controls.Add(this.HomeNav);
             this.navMenu.Dock = System.Windows.Forms.DockStyle.Right;
-            this.navMenu.Location = new System.Drawing.Point(694, 0);
+            this.navMenu.Location = new System.Drawing.Point(720, 0);
             this.navMenu.Name = "navMenu";
-            this.navMenu.Size = new System.Drawing.Size(239, 504);
+            this.navMenu.Size = new System.Drawing.Size(239, 538);
             this.navMenu.TabIndex = 1;
             this.navMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.navMenu_Paint);
             // 
-            // RaportNav
+            // CompanyNav
             // 
-            this.RaportNav.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RaportNav.BackgroundImage")));
-            this.RaportNav.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.RaportNav.Dock = System.Windows.Forms.DockStyle.Top;
-            this.RaportNav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.RaportNav.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.RaportNav.ForeColor = System.Drawing.SystemColors.Control;
-            this.RaportNav.Location = new System.Drawing.Point(0, 361);
-            this.RaportNav.Name = "RaportNav";
-            this.RaportNav.Size = new System.Drawing.Size(239, 69);
-            this.RaportNav.TabIndex = 8;
-            this.RaportNav.Text = "رابؤرت";
-            this.RaportNav.UseVisualStyleBackColor = true;
+            this.CompanyNav.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.CompanyNav.Dock = System.Windows.Forms.DockStyle.Top;
+            this.CompanyNav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CompanyNav.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CompanyNav.ForeColor = System.Drawing.SystemColors.Control;
+            this.CompanyNav.Image = ((System.Drawing.Image)(resources.GetObject("CompanyNav.Image")));
+            this.CompanyNav.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.CompanyNav.Location = new System.Drawing.Point(0, 361);
+            this.CompanyNav.Name = "CompanyNav";
+            this.CompanyNav.Size = new System.Drawing.Size(239, 79);
+            this.CompanyNav.TabIndex = 9;
+            this.CompanyNav.Text = "كؤمبانيا";
+            this.CompanyNav.UseVisualStyleBackColor = true;
             // 
             // PaymentNav
             // 
@@ -153,7 +154,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 504);
+            this.ClientSize = new System.Drawing.Size(959, 538);
             this.Controls.Add(this.navMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
@@ -171,8 +172,8 @@
         private Button HomeNav;
         private Button OrderNav;
         private Button CustomerNav;
-        private Button RaportNav;
         private Button PaymentNav;
         private Button PacketNav;
+        private Button CompanyNav;
     }
 }

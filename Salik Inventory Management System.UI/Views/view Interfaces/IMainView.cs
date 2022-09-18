@@ -14,6 +14,7 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         event EventHandler ShowOrderNav;
         event EventHandler ShowPaymentNav;
         event EventHandler ShowRaportNav;
+        event EventHandler ShowCompanyNav;
 
     }
 }

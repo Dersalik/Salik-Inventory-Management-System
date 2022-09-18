@@ -39,6 +39,8 @@ namespace Salik_Inventory_Management_System.UI.Views
         {
             this.PacketDataGridView.Columns["itemPriceDataGridViewTextBoxColumn"].DefaultCellStyle.FormatProvider = Program.formats;
             this.PacketDataGridView.Columns["itemPriceDataGridViewTextBoxColumn"].DefaultCellStyle.Format = "c";
+            this.PacketDataGridView.Columns["ItemPriceBought"].DefaultCellStyle.FormatProvider = Program.formats;
+            this.PacketDataGridView.Columns["ItemPriceBought"].DefaultCellStyle.Format = "c";
             editBackgroundWorker = new BackgroundWorker();
             deleteBackgroundWorker = new BackgroundWorker();
             addBackgroundWorker = new BackgroundWorker();
@@ -439,7 +441,7 @@ namespace Salik_Inventory_Management_System.UI.Views
         public event EventHandler sortByQuantity;
 
         public string? ItemName { get => nametxt.Text; set => nametxt.Text=value; }
-        public string ItemPrice { get => pricetxt.Text; set => pricetxt.Text=value; }
+        public string ItemPrice { get => sellingPricetxt.Text; set => sellingPricetxt.Text=value; }
         public string ItemQuantity { get => quantitytxt.Text; set => quantitytxt.Text=value; }
         public string? Description { get => destxt.Text; set => destxt.Text=value; }
         public string searchValue { get => searchtxt.Text; set => searchtxt.Text=value; }
@@ -448,7 +450,7 @@ namespace Salik_Inventory_Management_System.UI.Views
         public string Message { get => message; set => message=value; }
 
         public string? ItemNameedit { get => editName.Text; set => editName.Text=value; }
-        public string ItemPriceedit { get => editPrice.Text; set => editPrice.Text=value; }
+        public string ItemPriceedit { get => EditSellingPricetxt.Text; set => EditSellingPricetxt.Text=value; }
         public string ItemQuantityedit { get => editquantity.Text; set => editquantity.Text=value; }
         public string? Descriptionedit { get => editdes.Text; set => editdes.Text=value; }
         public string IdEdit { get => IdPacket.Text; set => IdPacket.Text=value; }
@@ -456,6 +458,8 @@ namespace Salik_Inventory_Management_System.UI.Views
         public bool byprie { get => sortByPriceRadiotBtn.Checked; }
         public bool byquantity { get => sortByQuantityRadioBtn.Checked;  }
         public bool nosort { get => NoSortRadioBtn.Checked; }
+        public string ItemBuyingPrice { get => buyingPricetxt.Text; set => buyingPricetxt.Text=value; }
+        public string ItemBuyingPriceEdit { get => ItemPriceBoughtEdittxt.Text; set => ItemPriceBoughtEdittxt.Text=value; }
 
         public void setPacketBindingSource(BindingSource packetList)
         {
@@ -542,6 +546,11 @@ namespace Salik_Inventory_Management_System.UI.Views
         }
 
         private void PacketHomeTab_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ItemPriceBoughttxt_TextChanged(object sender, EventArgs e)
         {
 
         }

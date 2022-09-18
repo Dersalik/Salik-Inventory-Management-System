@@ -14,7 +14,7 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         string? ItemName { get; set; }
 
         string ItemPrice { get; set; }
-
+        string ItemBuyingPrice { get; set; }
         string ItemQuantity { get; set; }
          string? Description { get; set; }
         //for edit
@@ -22,6 +22,7 @@ namespace Salik_Inventory_Management_System.UI.Views.view_Interfaces
         string? ItemNameedit { get; set; }
 
         string ItemPriceedit { get; set; }
+        string ItemBuyingPriceEdit { get; set; }
 
         string ItemQuantityedit { get; set; }
         string? Descriptionedit { get; set; }

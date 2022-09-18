@@ -3,11 +3,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Salik_Inventory_Management_System.UI.Configuration;
 using Salik_Inventory_Management_System.UI.DataAccess;
+using Salik_Inventory_Management_System.UI.Models;
 using Salik_Inventory_Management_System.UI.Presenters;
 using Salik_Inventory_Management_System.UI.Views;
 using Salik_Inventory_Management_System.UI.Views.view_Interfaces;
 using Serilog;
-using Serilog.Core;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -37,8 +37,7 @@ namespace Salik_Inventory_Management_System.UI
             IMainView mainView = GetService<MainView>();
             new MainPresenter(mainView);
 
-            bool test = File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "log.txt"));
-
+            InsertMardAndUser();
             try
             {
                 Application.Run((Form)mainView);
@@ -72,6 +71,41 @@ namespace Salik_Inventory_Management_System.UI
                 .WriteTo.File(Path.Combine(Directory.GetCurrentDirectory(), "log.txt"), rollingInterval: RollingInterval.Day)
                 .CreateLogger();
             ServiceProvider =services.BuildServiceProvider();
+        }
+
+        private static void InsertMardAndUser()
+        {
+            SalikInventoryManagementDbContextFactory factory= GetService<SalikInventoryManagementDbContextFactory>();
+
+            using (InventoryManagementSystemDbContext context = factory.CreateDbContext())
+            {
+                 bool checkIfMardIsNull = false;
+                 bool checkIfUserIsNull = false;
+                 checkIfMardIsNull = context.mardCompany.FirstOrDefault()==null;
+                 checkIfUserIsNull=context.User.FirstOrDefault()==null;
+                if (checkIfMardIsNull)
+                {
+                    MardCompany addNewMard = new MardCompany()
+                    {
+                        TotalMoneyOwedByUserToTheCompany = 0
+                    };
+                    context.mardCompany.Add(addNewMard);
+                    context.SaveChanges();
+                }
+
+                if (checkIfUserIsNull)
+                {
+                    User addNewUser = new User()
+                    {
+                        TotalMoneyOwedByCustomers = 0,
+                        TotalMoneyReceivedFromCustomers = 0
+                    };
+                    context.User.Add(addNewUser);
+                    context.SaveChanges();
+                }
+                
+            }
+
         }
         public static T? GetService<T>() where T:class
         {

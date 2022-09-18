@@ -26,6 +26,7 @@ namespace Salik_Inventory_Management_System.UI.Views
         public event EventHandler ShowOrderNav;
         public event EventHandler ShowPaymentNav;
         public event EventHandler ShowRaportNav;
+        public event EventHandler ShowCompanyNav;
 
         private void AssociateAndRaiseEvents()
         {
@@ -35,6 +36,7 @@ namespace Salik_Inventory_Management_System.UI.Views
             CustomerNav.Click += delegate { ShowCustomerNav?.Invoke(this, EventArgs.Empty); };
             PaymentNav.Click += delegate { ShowPaymentNav?.Invoke(this, EventArgs.Empty); };
             OrderNav.Click += delegate { ShowOrderNav?.Invoke(this, EventArgs.Empty); };
+            CompanyNav.Click+= delegate { ShowCompanyNav?.Invoke(this, EventArgs.Empty); };
         }
         private void button1_Click(object sender, EventArgs e)
         {

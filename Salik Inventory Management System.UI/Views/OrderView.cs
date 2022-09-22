@@ -35,5 +35,15 @@ namespace Salik_Inventory_Management_System.UI.Views
             }
             return instance;
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
